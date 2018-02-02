@@ -1,0 +1,336 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+li {
+    list-style: none;
+}
+
+.main {
+    box-sizing: content-box;
+    padding: 0 30px;
+    background: radial-gradient(circle, #95989b, #464849, #000000);
+}
+
+.clear {
+    clear: both;
+    content: "";
+}
+
+.form_container {
+    text-align: center
+}
+
+.login_form {
+    margin: 10% 0 10% 0;
+    display: inline-block;
+    background: linear-gradient( to top,  #101f70, #8b34e2);
+    border-radius: 4px;
+    box-shadow: 2px 3px #000000; 
+    padding: 40px;
+}
+.bold {
+    font-weight: bold;
+}
+.logoSect {
+    padding: 5px;
+    cursor: pointer;
+}
+.logo-enc {
+    padding: 2px;
+    float: left;
+    border-radius: 5px;
+}
+.logo {
+    position: relative;
+    background-image: url('../images/logo1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+}
+.logoText {
+    padding: 10px 5px;
+    float: left;
+    color: #ffffff;
+    font-size: 18px;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+    0px 8px 13px rgba(0,0,0,0.1),
+    0px 18px 23px rgba(0,0,0,0.1);
+}
+.login_form input[type=text], .login_form input[type=password] {
+    border: thin solid #6bb87e;
+}
+.login_form input {
+    box-sizing: border-box;
+    display: block;
+    margin: 3px;
+    height: 30px;
+    width: 300px;
+    padding: 4px;
+    border-radius: 3px;
+}
+.blue-button {
+    background: #0b1963;
+    border: solid thin #0b1963;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 5px 0;
+    box-shadow: 0 2px #070404;
+    margin: 3px 0;
+    cursor: pointer;
+}
+.blue-button:hover {
+    box-shadow: 0px 1px #070404; 
+}
+.blue-button:active {
+    background: #0b1963;
+    border: solid thin #0b1963;
+    box-shadow: 0px 1px #070404; 
+}
+.feedback {
+    padding: 5px;
+    background-color: #f3f0f0;
+    font-size: 16px;
+    color: #02381a;
+}
+
+.user_welcome {
+    position: absolute;
+    padding: 10px;
+    background-color: #ebe2e2;
+    top: 0;
+    width: 93%;
+}
+
+.user_welcome #logout {
+    float: right;
+    background-color: #000000;
+    box-shadow: 2px 2px 2px #525252;
+    padding: 5px 10px;
+}
+
+#logout a {
+    text-decoration: none;
+    color: white;
+}
+
+.menu {
+    box-sizing: content-box;
+    position: relative;
+    float: right;
+    padding: 10px 10px;
+    background-color: #525252;
+    color: white;
+    width: 100%;
+    right: -10px;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu li a {
+    color: white;
+    padding: 2px 3px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #0e4120;
+}
+
+.approveDeny {
+    display: inline-flex;
+}
+
+.approveDeny form {
+    box-sizing: border-box;
+    min-width: 32%;
+    max-width: 45%;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    float: left;
+}
+
+.approveDeny form input {
+    margin-right: 5px;
+    min-width: 70px;
+}
+
+.name {
+    text-transform: capitalize;
+    font-size: 15px;
+    color: #7e9482;
+    font-style: italic;
+}
+
+.print {
+    display: block;
+    text-align: center;
+    width: 60px;
+    padding: 2px;
+    margin: 5px;
+    color: #ffffff;
+    background-color: #070404;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.applications {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    float: left;
+    border: thin solid #525252;
+    margin-top: 90px;
+}
+
+.applications li {
+    list-style: disc;
+    margin-bottom: 5px;
+    padding: 3px;
+    list-style: none;
+}
+
+.applications_1 {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    float: left;
+    border: thin solid #525252;
+    margin-top: 90px;
+}
+
+.applications_1 li {
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.applications a,
+.applications_1 a {
+    color: #0e2c14;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 2px;
+    width: 90%;
+}
+
+.dit {
+    font-size: 17px;
+    color: #0e2c14;
+    background-color: #ebe2e2;
+    padding: 2px;
+}
+
+.dit:hover {
+    background-color: #abcafc;
+}
+
+.dit a:hover {
+    color: #27773b;
+}
+
+.application_dits {
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border: thin solid #525252;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.application_dits li {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.application_dits .info {
+    position: relative;
+    min-width: 40%;
+    min-height: 100px;
+    margin-left: 10px;
+    float: left;
+    top: 10px;
+    right: 10px;
+}
+
+.application_dits .comments {
+    position: relative;
+    width: 40%;
+    float: right;
+    top: 10px;
+    right: 10px;
+}
+
+.application_dits .comments textarea {
+    width: 99%;
+    min-height: 100px;
+}
+
+.application_dits .comments input {
+    padding: 5px;
+}
+
+.application_dits .comments li {
+    padding: 10px;
+}
+
+.users {
+    position: relative;
+    float: left;
+    width: 20%;
+}
+
+.users_info {
+    position: relative;
+    margin-top: 20px;
+    float: right;
+    width: 70%;
+}
+
+.users_info li {
+    list-style: none;
+}
+
+.users_info input {
+    margin: 3px;
+}
+
+.footer {
+    color: #000000;
+    padding-top: 30px;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    bottom: 0;
+}
+
+@media print {
+    .applications,
+    .applications_1,
+    .menu,
+    .user_welcome,
+    .print {
+        display: none;
+    }
+}

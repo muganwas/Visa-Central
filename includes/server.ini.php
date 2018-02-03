@@ -2,5 +2,5 @@
     $server = 'localhost'; 
     $username = 'root';
     $password = ''; 
-    $database = 'idcc';
+    $database = 'visas';
 ?>

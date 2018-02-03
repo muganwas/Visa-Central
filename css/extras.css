@@ -1,0 +1,44 @@
+/*tooltip*/
+[info-tip] {
+    position:relative;
+}
+[info-tip]:before {
+	content:'';
+	/* hides the tooltip when not hovered */
+	display:none;
+	content:'';
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #010413;	
+	position:absolute;
+	top:79px;
+	left:47px;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+[info-tip]:after {
+    display:none;
+    text-align: center;
+	content:attr(info-tip);
+	position:absolute;
+	top:84px;
+	left:0px;
+	padding:5px 8px;
+	background:#010413;
+	color:#fff;
+	z-index:9;
+	font-size: 0.75em;
+    height:18px;
+	line-height:18px;
+	white-space:nowrap;
+    word-wrap:normal;
+    width: 92px;
+}
+[info-tip]:hover:before,
+[info-tip]:hover:after {
+    display:block;
+}
+/*end of tooltip*/

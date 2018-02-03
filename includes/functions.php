@@ -9,6 +9,18 @@ class visa_central{
     public function loginForm() {
         require('includes/login.php');
     }
+    public function showApplications() {
+        require('dashes/applications.php');
+    }
+    public function showAgents() {
+        require('dashes/agents.php');
+    }
+    public function showExecs() {
+        require('dashes/execs.php');
+    }
+    public function applicationForm() {
+        require('forms/visa_application.php');
+    }
     public function login($email, $pass){
 
         $server = server;
@@ -20,18 +32,18 @@ class visa_central{
             
             if((isset($email) && isset($pass)) && (!empty($email) && !empty($pass))){
                 $pass = md5($pass);
-                $query = "SELECT id FROM users WHERE `email` = ? AND `password` = ?";
+                $query = "SELECT `id`, `level` FROM users WHERE `email` = ? AND `password` = ?";
                 $connect = $db->prepare($query);
                 $connect->bind_param("ss", $email, $pass);
                 $connect->execute();
-                $connect->bind_result($id);
+                $connect->bind_result($id, $level);
                 $connect->fetch();
                 $connect->close();
 
                 if($id>0){
-                    $_SESSION['username'] =$email;
-                    header('location: dash.php?plc=home');
-
+                    $_SESSION['username'] = $this->getUserId($id);
+                    $_SESSION['level']=$level;
+                    header('location: dash.php?plc=applications'); 
                 }else{
 
                     return $msg = "Please fill in the correct credentials <br/> or contact your SYSTEMS ADMIN";
@@ -580,7 +592,7 @@ class visa_central{
             return $msg = "There was a problem connecting to the database";
         }
     }
-    public function createUser($name, $email, $phone, $pass, $c_pass, $level, $title, $institution){
+    public function createUser($name, $email, $phone, $pass, $c_pass, $level){
 
         $server = server;
         $username = server_user;
@@ -589,19 +601,15 @@ class visa_central{
         $name=trim(htmlentities($name));
         $email=trim(htmlentities($email));
         $phone=trim(htmlentities($phone));
-        $rem_token = rand(-100, 100);
-        $level=trim(htmlentities($level));
-        $title=trim(htmlentities($title));
-        $institution=trim(htmlentities($institution));
-        if(!empty($name) && !empty($email) && !empty($phone) && !empty($pass) && !empty($c_pass) && !empty($level) && !empty($title) && !empty($institution)){
+        if(!empty($name) && !empty($email) && !empty($phone) && !empty($pass) && !empty($c_pass) && !empty($level)){
 
             if($pass == $c_pass){
                 $pass=md5($pass);
                 if($db = new mysqli($server, $username, $password, $database)){
 
-                    $query = "INSERT INTO `users` VALUES('',?,?,?,?,?,null,'',?,?,?)";
+                    $query = "INSERT INTO `users` VALUES('',?,?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("ssssssss", $name, $email, $phone, $pass, $rem_token, $level, $title, $institution);
+                    $connect->bind_param("sssss", $name, $email, $phone, $pass, $level);
         
                     if($connect->execute()){
                         return 'You successfull added '.$name.' to the database';                   
@@ -616,24 +624,22 @@ class visa_central{
         }       
         
     }
-    public function submitForm($type, $requesting_entity, $purpose_visit, $frequency, $driver_name, $driver_qid, $vehicle_number, $phone_number, $additional_passengers, $passanger_qids, $employee, $material, $date, $time_in, $time_out){
+    public function submitForm($agent, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status){
 
         $server = server;
         $username = server_user;
         $password = server_pass;
         $database = site_database;
-        $entry_level = 1;
-        if(!empty($type) && !empty($requesting_entity) && !empty($purpose_visit) && !empty($frequency) && !empty($driver_name) && !empty($driver_qid) && !empty($vehicle_number) && !empty($phone_number) && !empty($additional_passengers) && !empty($passanger_qids) && !empty($employee) && !empty($material) &&  !empty($date) && !empty($time_in) && !empty($time_out)){
+        if(!empty($agent) && !empty($name) && !empty($passport_no) && !empty($ref_id_no) && !empty($ref_mobile_no) && !empty($status)){
 
-            $additional_passengers = $additional_passengers.' '.$passanger_qids;
             if($db = new mysqli($server, $username, $password, $database)){
                 try{
-                    $query = "INSERT INTO `forms` VALUES('',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'','','',null,'')";
+                    $query = "INSERT INTO `applications` VALUES('',?,?,?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("sssisssssssssss", $type, $requesting_entity, $purpose_visit, $frequency, $driver_name, $driver_qid, $vehicle_number, $phone_number, $additional_passengers, $employee, $material, $date, $time_in, $time_out, $entry_level);                 
+                    $connect->bind_param("ssssis", $agent, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status);                 
                     if($connect->execute()){
-                        return 'You successfull submite your form, thank you.';
-                        $this->sendEmailNotification($entry_level);
+                        return 'Application creation was successful, thank you.';
+                        //$this->sendEmailNotification($entry_level);
                     }else{
                         return 'Something went wrong, please try again.';
                     }                

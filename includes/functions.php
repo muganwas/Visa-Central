@@ -32,16 +32,17 @@ class visa_central{
             
             if((isset($email) && isset($pass)) && (!empty($email) && !empty($pass))){
                 $pass = md5($pass);
-                $query = "SELECT `id`, `level` FROM users WHERE `email` = ? AND `password` = ?";
+                $query = "SELECT `id`, `name`, `level` FROM users WHERE `email` = ? AND `password` = ?";
                 $connect = $db->prepare($query);
                 $connect->bind_param("ss", $email, $pass);
                 $connect->execute();
-                $connect->bind_result($id, $level);
+                $connect->bind_result($id, $name, $level);
                 $connect->fetch();
                 $connect->close();
 
                 if($id>0){
-                    $_SESSION['username'] = $this->getUserId($id);
+                    $_SESSION['id'] = $id;
+                    $_SESSION['username'] = $name;
                     $_SESSION['level']=$level;
                     header('location: dash.php?plc=applications'); 
                 }else{
@@ -70,50 +71,89 @@ class visa_central{
             header('location: '. site_root);
         }
     }
-    public function applications($level, $institution){
+    public function applications($agent_id, $agent_name){
 
+        if(isset($_GET['plc'])){
+            $loc =temp_name1."?plc=".$_GET['plc'];
+        }else{
+            $loc = temp_name1;
+        }
         $server = server;
         $username = server_user;
         $password = server_pass;
         $database = site_database;
-        if(isset($_GET['plc'])){
-            $loc =temp_name1."?plc=".$_GET['plc'];
-        }else{
-            $lco = temp_name1;
-        }
-       
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            if($institution == "idcc"){
-                $query = "SELECT `id`, `type` FROM `forms` WHERE `at_level` = ?";
-                $connect = $db->prepare($query);
-                $connect->bind_param("s", $level);
-                $connect->execute();
-                $connect->bind_result($id, $application);              
-                while($connect->fetch()){
-                    $there = true;
-                    echo '<li class="dit"><span class="bold">Application Id: </span>'.$id.'&nbsp; <span class="bold">Type: </span><a href="'.$loc.'&application='.$id.'">'.$application.'</a></li>';                   
-                }
-                if(!isset($there)){
-                    echo "<span class='feedback'>There are no applications to vet</span>";
-                }
-            }else{
-                $query = "SELECT `id`, `type` FROM `forms` WHERE `at_level` = ? AND `requesting_entity` = ?";
-                $connect = $db->prepare($query);
-                $connect->bind_param("ss", $level, $institution);
-                $connect->execute();
-                $connect->bind_result($id, $application);
-
-                while($connect->fetch()){
-                    $there = true;
-                    echo '<li class="dit"><span class="bold">Application Id: </span>'.$id.'&nbsp; <span class="bold">Type: </span><a href="'.$loc.'&application='.$id.'">'.$application.'</a></li>';                   
-                }
-                if(!isset($there)){
-                    echo "<span class='feedback'>There are no applications to vet</span>";
-                }
-            }
-
+        $row_count = 0;
+        $rows_to_show = 2;
+        if($mysqli = new mysqli($server, $username, $password, $database)){
             
+            $query1 = "SELECT count(id) FROM applications WHERE travel_agent ='".$agent_name."'";
+            $connect1 = $mysqli->query($query1);
+            $row = $connect1->fetch_row();//get the number of rows the query returned
+            $total_row_count = $row[0];
+            $last_page = ceil($total_row_count/$rows_to_show);
+            //echo $last_page;
+            //make sure the last page is never less than 1
+            if($last_page < 1){
+                $last_page = 1;
+            }
+            //page number details
+            $page_num = 1;
+            if(isset($_GET['page_num'])){
+                $page_num = preg_replace('#[^0-9]#', '', $_GET['page_num']) ;
+            }
+            if($page_num < 1){
+                $page_num = 1;
+            }else if($page_num > $last_page){
+                $page_num = $last_page;
+            }
+            $limit = ($page_num - 1) * $rows_to_show.', '. $rows_to_show;
+            //fetch the data depending on the page requested
+            $query = "SELECT travel_agent, application_number, reference_card_number, reference_mobile_number, created, application_status FROM applications WHERE travel_agent = '".$agent_name."' LIMIT $limit ";
+            $connect = $mysqli->query($query);
+            $textLine1 = "Applications (<b>$total_row_count</b>)";
+            $textLine2 = "Page <b>$page_num</b> of <b>$last_page</b>";
+            //pagination controls var
+            $paginationCtrl = '';
+            //pagination navigation
+            if($last_page != 1){
+                $init_next = 2;
+                if(!isset($_GET['page_num']) || $_GET['page_num'] == 1){
+                    $second = '&amp;page_num='.$init_next;
+                    $last_page_addon = '&amp;page_num='.$last_page;
+                    echo "<div><a href='".$loc."".$second."'> >> </a> <a href='".$loc."".$last_page_addon."'> >>> </a></div>";
+                }else if(isset($_GET['page_num'])){
+                    $curr_page = $_GET['page_num'];
+                    if($curr_page == $last_page && $curr_page == 2){
+                        $init_page = '&amp;page_num=1';
+                        echo "<div><a href='".$loc."'> << </a> </div>";
+                    }else if($curr_page != $last_page && $curr_page != 1){
+                        $next_page = $curr_page+1;
+                        $prev_page = $curr_page-1;
+                        $next_page_addon = '&amp;page_num='.$next_page;
+                        $prev_page_addon = '&amp;page_num='.$prev_page;
+                        $last_page_addon = '&amp;page_num='.$last_page;
+                        echo "<div> <a href='".$loc."'> <<< </a> <a href='".$loc."".$prev_page_addon."'> << </a> <a href='".$loc."".$next_page_addon."'> >> </a>  <a href='".$loc."".$last_page_addon."'> >>> </a></div>";
+                    }else if(($curr_page == $last_page && $curr_page != 1)){
+                        $prev_page = $curr_page-1;
+                        $prev_page_addon = '&amp;page_num='.$prev_page;
+                        echo "<div><a href='".$loc."'> <<< </a> <a href='".$loc."".$prev_page_addon."'> << </a></div>";
+                    }
+                }   
+            }
+            //Information about the results
+            echo "<div>", $textLine1, " ",$textLine2, "</div>";
+            while($data = $connect->fetch_array(MYSQLI_ASSOC)){
+                echo 
+                $data['travel_agent'],' ',
+                $data['application_number'],' ',
+                $data['reference_card_number'],' ',
+                $data['reference_mobile_number'],' ',
+                $data['application_status'],' ',
+                $data['created'], '<br/>';
+            }
+            if($total_row_count==0){
+                echo "<div id='feedback'>There are no applications to view</div>";
+            }         
         }
     }
     public function getApprovedApplications($staus){
@@ -136,7 +176,6 @@ class visa_central{
             $connect->bind_param("ss", $staus, $done_level);
             $connect->execute();
             $connect->bind_result($id, $application, $approved_by);
-
             while($connect->fetch()){
                 $there=true;
                 $loc = $loc."&applicant=".$id;
@@ -624,7 +663,7 @@ class visa_central{
         }       
         
     }
-    public function submitForm($agent, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status){
+    public function submitForm($agent, $app_no, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status){
 
         $server = server;
         $username = server_user;
@@ -634,9 +673,9 @@ class visa_central{
 
             if($db = new mysqli($server, $username, $password, $database)){
                 try{
-                    $query = "INSERT INTO `applications` VALUES('',?,?,?,?,?,null,?)";
+                    $query = "INSERT INTO `applications` VALUES('',?,?,?,?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("ssssis", $agent, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status);                 
+                    $connect->bind_param("sssssis", $agent, $app_no, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status);                 
                     if($connect->execute()){
                         return 'Application creation was successful, thank you.';
                         //$this->sendEmailNotification($entry_level);

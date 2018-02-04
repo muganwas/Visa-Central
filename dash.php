@@ -4,11 +4,12 @@
 $glip->showHeader();
 if(isset($_SESSION['username']) && (defined('server') && defined('server_user') && defined('server_pass') && defined('site_database')) && isset($_GET['plc'])){ 
     $user = $_SESSION['username'];
-    $userLevel = $_SESSION['level']; //$glip->getLevel($user);
-    $fname = $glip->getUsername($user);
+    $id = $_SESSION['id'];
+    $userLevel = $_SESSION['level'];
+    $fname = $glip->getUsername($id);
     //start of top section
     echo '<div class="header_sect">';
-    echo '<div class="top_widget"><div id="user_welcome">Welcome <span class="name">', $fname,'!</span></div>';
+    echo '<div class="top_widget"><div id="user_welcome">Welcome <span class="name">', $user,'!</span></div>';
     ?>
     <div id="logout"><a href="dash.php?logout=yes">Logout</a></div>
     </div>

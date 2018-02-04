@@ -224,7 +224,7 @@ li {
 .search {
     position: absolute;
     top: 30%;
-    right: 5px;
+    right: 40px;
 }
 .search input {
     color: #ffffff;

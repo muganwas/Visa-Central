@@ -8,6 +8,12 @@
     left: 7%;
     position: absolute;
 }
+.real_left_float{
+    float: left;
+}
+.inline_block{
+    display: inline-block;
+}
 .hidden{
     display: none!important;
     height: 0;
@@ -17,7 +23,7 @@
     box-sizing: border-box;
     display: flex;
     position: absolute;
-    min-height: 450px;
+    min-height: 550px;
     background: #ffffff;
     width: 100%;
     left: 0;
@@ -36,7 +42,7 @@
     background: #323030;
     border-bottom-left-radius: 6px;
     box-shadow: -2px 3px 2px #070404;
-    height: 400px;
+    height: 500px;
     width: 25%;
 }
 #applicants-dits {
@@ -45,7 +51,7 @@
     border: thin solid #010413;
     background: #323030;
     box-shadow: 0 3px 2px #070404;
-    height: 400px;
+    height: 500px;
     min-width: 50%;
 }
 #applicants-dits input{
@@ -59,6 +65,7 @@
     font-size: 14px;
 }
 #search-results {
+    display: block;
     box-sizing: border-box;
     color: #ffffff;
     float: left;
@@ -67,13 +74,38 @@
     background: #323030;
     border-bottom-right-radius: 6px;
     box-shadow: 0 3px 2px #070404;
-    height: 400px;
+    height: 500px;
+    max-height: 95%;
     width: 25%;
 }
 #application-form form {
     margin-top: 30px;
 }
 .applications-main input[type=text] {
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    margin: 3px 10px;
+    max-width: 100%;
+    height: 30px;
+    width: 95%;
+    padding: 4px;
+    border: thin solid #b1afaf;
+    border-radius: 3px;
+}
+.applications-main input[type=email] {
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    margin: 3px 10px;
+    max-width: 100%;
+    height: 30px;
+    width: 95%;
+    padding: 4px;
+    border: thin solid #b1afaf;
+    border-radius: 3px;
+}
+.applications-main input[type=password] {
     position: relative;
     box-sizing: border-box;
     display: block;
@@ -129,6 +161,7 @@
     font-size: 14px;
 }
 .applicationsList{
+    position: relative;
     margin:10px;
 }
 .applicationsList a {
@@ -167,7 +200,32 @@
     margin: 5px 0;
     color: #555555;
     background: #ffffff;
-    min-height: 50px;
+    min-height: 200px;
+}
+.comments_reg{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 5px;
+    margin: 5px 0;
+    color: #555555;
+    background: #ffffff;
+    min-height: 300px;
+}
+.comments_reg .cname {
+    width: 20%!important;
+}
+.comments_reg .note {
+    width: 60%!important;
+}
+.comments_reg .date {
+    width: 20%!important;
+}
+.comments_reg .downer {
+    height: 100px;
+    overflow: hidden;
 }
 .thead {
     color: #ffffff;
@@ -367,4 +425,7 @@
     width: 300px;
     background: #010a35;
     box-shadow: 1px 2px #020202;
+}
+#notes{
+    width: 99%;
 }

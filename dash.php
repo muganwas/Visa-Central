@@ -20,9 +20,9 @@ if(isset($_SESSION['username']) && (defined('server') && defined('server_user') 
    <?php if(isset($_GET['plc']) && $_GET['plc'] === "applications"){
        $glip->showApplications();
     }else if(isset($_GET['plc']) && $_GET['plc'] === "agents"){
-
+        $glip->showAgents();
     }else if(isset($_GET['plc']) && $_GET['plc'] === "execs"){
-
+        $glip->showExecs();
     }else if(!isset($_GET['plc']) || empty($_GET['plc'])){
         //if someone tries to access dash without proper params log them out
         header('location: dash.php?logout=yes');

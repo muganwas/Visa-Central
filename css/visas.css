@@ -282,7 +282,7 @@ li {
 }
 
 .footer {
-    position: fixed;
+    position: static;
     color: #000000;
     padding-top: 30px;
     width: 100%;

@@ -18,11 +18,17 @@ class visa_central{
     public function showExecs() {
         require('dashes/execs.php');
     }
+    public function makeNote(){
+        require('forms/makeNote.php');
+    }
     public function applicationForm() {
         require('forms/visa_application.php');
     }
     public function update_applicant_info(){
         require('forms/update_info.php');
+    }
+    public function agentCreationForm(){
+        require('forms/create_agent.php');
     }
     public function upload_photo($agent, $applicant, $pass_photo){
 
@@ -292,7 +298,7 @@ class visa_central{
         $password = server_pass;
         $database = site_database;
         $row_count = 0;
-        $rows_to_show = 5;
+        $rows_to_show = 9;
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
             $query2 = "SELECT `level` FROM `users` WHERE `name` ='".$agent_name."'";
@@ -392,6 +398,9 @@ class visa_central{
                 <div class="clear"></div> 
                 ';      
                 while($data = $connect->fetch_array(MYSQLI_ASSOC)){
+                    $timestamp = $data['created'];
+                    $timestampArr = explode(' ', $timestamp);
+                    $date = $timestampArr[0];
                     echo 
                     '<div class="tbody">
                     <div class="agent">',$data['travel_agent'],'</div>',
@@ -404,7 +413,7 @@ class visa_central{
                     '<div class="ref_id">',$data['reference_card_number'],'</div>',
                     '<div class="ref_mobile">',$data['reference_mobile_number'],'</div>',
                     '<div class="status_alt">',$data['application_status'],'</div>',
-                    '<div class="date">',$data['created'],'</div>
+                    '<div class="date">',$date,'</div>
                     </div>
                     <div class="clear"></div>
                     ';
@@ -500,29 +509,6 @@ class visa_central{
 
         }
     }
-    public function getInstitution($user){
-
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-                
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            $query = "SELECT `institution` FROM `users` WHERE `email` = ?";
-            $connect = $db->prepare($query);
-            $connect->bind_param("s", $user);
-            $connect->execute();
-            $connect->bind_result($inst);
-
-            while($connect->fetch()){
-
-                return $inst;
-                                
-            } 
-
-        }
-    }
     public function getUserNameById($id){
 
         $server = server;
@@ -541,6 +527,29 @@ class visa_central{
             while($connect->fetch()){
 
                 return $username;
+                                
+            } 
+
+        }
+    }
+    public function getUserId($name){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+
+            $query = "SELECT `id` FROM `users` WHERE `name` = ?";
+            $connect = $db->prepare($query);
+            $connect->bind_param("s", $name);
+            $connect->execute();
+            $connect->bind_result($id);
+
+            while($connect->fetch()){
+
+                return $id;
                                 
             } 
 
@@ -569,7 +578,7 @@ class visa_central{
 
         }
     }
-    public function getUserId($user){
+    public function getApplicantsId($user){
 
         $server = server;
         $username = server_user;
@@ -578,7 +587,7 @@ class visa_central{
                 
         if($db = new mysqli($server, $username, $password, $database)){
 
-            $query = "SELECT `id` FROM `users` WHERE `email` = ?";
+            $query = "SELECT `id` FROM `applications` WHERE `application_number` = ?";
             $connect = $db->prepare($query);
             $connect->bind_param("s", $user);
             $connect->execute();
@@ -590,51 +599,6 @@ class visa_central{
                                 
             } 
 
-        }
-    }
-    public function getApplicantId($user){
-
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-                
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            $query = "SELECT `id` FROM `forms` WHERE `requesting_entity` = ?";
-            $connect = $db->prepare($query);
-            $connect->bind_param("s", $user);
-            $connect->execute();
-            $connect->bind_result($id);
-
-            while($connect->fetch()){
-
-                return $id;
-                                
-            } 
-
-        }
-    }
-    public function commented($user, $applicant){
-
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-                
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            $query = "SELECT `comment` FROM `comments` WHERE `admin_id` = ? AND `applicant_id`=?";
-            $connect = $db->prepare($query);
-            $connect->bind_param("ss", $user, $applicant);
-            $connect->execute();
-            $connect->bind_result($comment);
-
-            while($connect->fetch()){
-
-                return $comment;
-                                
-            }
         }
     }
     public function getApplicationDetails($applicant, $user){
@@ -671,7 +635,7 @@ class visa_central{
             <div>
                 <form action="" method="POST">
                     <input type="hidden" name="unset" value="unset"/>
-                    <input type="submit" name="back" value="Back To Detail Page"/>
+                    <input type="submit" name="back" value="Back To Application List"/>
                 </form>
             </div>';
             echo '<div class="repeat_reg">
@@ -716,6 +680,9 @@ class visa_central{
             </div>
             <div class="clear"></div> 
             ';
+            $timestamp = $date;
+            $timestampArr = explode(' ', $timestamp);
+            $date = $timestampArr[0];
             echo 
                 '<div class="tbody">
                 <div class="agent_alt">',$agent,'</div>',
@@ -732,30 +699,7 @@ class visa_central{
             </div>';
         }
     }
-    public function getComments($applicant, $admin){
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-                
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            $query1 = "SELECT `admin_id`, `comment`, `date` FROM `comments` WHERE `applicant_id` = ?";
-            $connect1 = $db->prepare($query1);
-            $connect1->bind_param("s", $id);
-            $connect1->execute();
-            $connect1->bind_result($admin_id, $comment, $date);
-            while($connect1->fetch()){
-                $a_name = $this->getUserNameById($admin_id);
-                if($a_name !== null && $a_name !== ''){
-                    echo '<li class="dit"> <span class="bold">'.$a_name. ":</span><br/> " .$comment.' <br/><span class="bold">Date: </span>'.$date.'</li>';
-                }
-            }
-            
-            $connect1->close();
-        }
-    }
-    public function postComment($user_id, $applicants_id, $comment){
+    public function postNote($user_id, $applicants_id, $comment){
 
         $server = server;
         $username = server_user;
@@ -765,13 +709,12 @@ class visa_central{
 
             if($db = new mysqli($server, $username, $password, $database)){
 
-                $query = "INSERT INTO `comments` VALUES('',?,?,?,null)";
+                $query = "INSERT INTO `notes` VALUES('',?,?,?,null)";
                 $connect = $db->prepare($query);
                 $connect->bind_param("sss", $user_id, $applicants_id, $comment);
                 if($connect->execute()){
-                    header('location:'.$loc1);                   
+                    return '<div class="floating_fb">Note posted successfully.</div>';                   
                 } 
-    
             }
         }else{
             return 'Please fill the comment section';
@@ -827,92 +770,6 @@ class visa_central{
                 
                 return $msg = 'There\'s a problem with sending notifications, sorry!';
             }
-        }
-    }
-    public function approve_application($next_level, $approver, $applicant){
-        
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-        $num_of_approvers = 4;
-        if($next_level <= $num_of_approvers){
-            if($connect = mysqli_connect($server, $username, $password, $database)){
-
-                $query = "UPDATE `forms` SET `at_level`= ? WHERE `id`=? ";
-                $upd = $connect->prepare($query);
-                $upd->bind_param("ss", $next_level, $applicant);
-                $upd->execute();
-                if($upd->affected_rows >= 1){
-                    return $msg = $applicant."'s application was successfully approved";
-                    $this->sendEmailNotification($next_level);
-                }else{
-                    return $msg = "There was an error approving applicant!";
-                }
-            }else{
-                return $msg = "There was a problem connecting to the database";
-            }
-        }else{
-            if($connect = mysqli_connect($server, $username, $password, $database)){
-                $approved=1;
-
-                $query = "UPDATE `forms` SET `approved`= ?, `approved_by`=?, `at_level`=? WHERE `id`=? ";
-                $upd = $connect->prepare($query);
-                $upd->bind_param("ssss", $approved, $approver, $next_level, $applicant);
-                $upd->execute();
-                if($upd->affected_rows >= 1){
-                    return $msg = $applicant."'s application was successfully approved";
-                    $this->sendEmailNotification($next_level);
-                }else{
-                    return $msg = "There was an error approving applicant!";
-                }
-            }else{
-                return $msg = "There was a problem connecting to the database";
-            } 
-        }
-        
-    }
-    public function disapprove_application($next_level, $applicant){
-        
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-        if($connect = mysqli_connect($server, $username, $password, $database)){
-            $query = "UPDATE `forms` SET `at_level`= ? WHERE `id`=? ";
-            $upd = $connect->prepare($query);
-            $upd->bind_param("ss", $next_level, $applicant);
-            $upd->execute();
-            if($upd->affected_rows >= 1){
-                echo $msg = $applicant."'s application was successfully dis-approved";
-                $this->sendEmailNotification($next_level);
-            }else{
-                echo $msg = "There was an error dis-approving applicant!";
-            }         
-        }else{
-            echo $msg = "There was a problem connecting to the database";
-        }
-    }
-    public function rejectApplication($user, $applicant){
-        
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-        $rejected_level = 5;
-        if($connect = mysqli_connect($server, $username, $password, $database)){
-
-            $query = "UPDATE `forms` SET `approved_by`= ?, `at_level`= ? WHERE `id`=? ";
-            $upd = $connect->prepare($query);
-            $upd->bind_param("sss", $user, $rejected_level, $applicant);
-            $upd->execute();
-            if($upd->affected_rows >= 1){
-                echo $msg = $applicant."'s application was successfully rejected";
-            }else{
-                echo $msg = "There was an error rejecting applicant!";
-            }
-        }else{
-            echo $msg = "There was a problem connecting to the database";
         }
     }
     public function getUsers(){
@@ -1054,6 +911,28 @@ class visa_central{
         }       
         
     }
+    public function createAgent($user_id, $agent_number, $email, $phone, $address, $contact){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        if(!empty($user_id) && !empty($agent_number) && !empty($email) && !empty($phone) && !empty($address) && !empty($contact)){
+
+            if($db = new mysqli($server, $username, $password, $database)){
+
+                $query = "INSERT INTO `agents` VALUES('',?,?,?,?,?,?)";
+                $connect = $db->prepare($query);
+                $connect->bind_param("ississ", $user_id, $agent_number, $email, $phone, $address, $contact);
+                if($connect->execute()){
+                    return 'You successfull registered agent';                   
+                } 
+            }
+        }else{
+            return 'Please fill all the text fields';
+        }       
+        
+    }
     public function submitForm($agent, $app_no, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status, $pass_photo, $passport){
 
         $server = server;
@@ -1084,5 +963,172 @@ class visa_central{
             return 'Fill in all required fields.';
         }
                
+    }
+    public function regAgent($agent_name, $agent_number, $address, $contact_person, $agent_mobile, $email, $pass){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        $level = 1;
+        $feedback ="Init". $agent_name. $agent_number. $address. $contact_person. $agent_mobile. $email. $password;
+        if(!empty($agent_name) && !empty($pass) && !empty($agent_number) && !empty($address) && !empty($contact_person) && !empty($agent_mobile) && !empty($email)){
+            $pass = md5($pass);
+            if($db = new mysqli($server, $username, $password, $database)){
+                try{
+                    $query = "INSERT INTO `users` VALUES('',?,?,?,?,null,?)";
+                    $connect = $db->prepare($query);
+                    $connect->bind_param("ssiss", $agent_name, $email, $agent_mobile, $pass, $level);                 
+                    $connect->execute();
+                    //get user id
+                    $user_id = $this->getUserId($agent_name);
+                    if($user_id != 0 && $user_id != null){
+                        //$upload_fb = $this->upload_files($agent, $name);
+                        return 'User was successfully registered.<br/>'. $this->createAgent($user_id, $agent_number, $email, $agent_mobile, $address, $contact_person);
+                        //$this->sendEmailNotification($entry_level);
+                    }else{
+                        return "Something went wrong while retrieving the user Id.";
+                    }                
+                }catch(Exception $e){
+                    return $e->message;
+                }
+            }else{
+                return 'There is an error with the form, try agin within 24hrs.';
+            }
+        }else{
+            return 'Fill in all required fields.';
+        }
+               
+    }
+    public function notesList($applicant){
+
+        if(isset($_GET['plc'])){
+            $loc =temp_name1."?plc=".$_GET['plc'];
+        }else{
+            $loc = temp_name1;
+        }
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        $row_count = 0;
+        $rows_to_show = 1;
+        $applicant = trim(htmlentities($applicant));
+        if($mysqli = new mysqli($server, $username, $password, $database)){
+
+            $query1 = "SELECT count(id) FROM notes WHERE `applicant_id`=".$applicant;
+            $connect1 = $mysqli->query($query1);
+            $row = $connect1->fetch_row();//get the number of rows the query returned
+            $total_row_count = $row[0];
+            $last_page = ceil($total_row_count/$rows_to_show);
+            //make sure the last page is never less than 1
+            if($last_page < 1){
+                $last_page = 1;
+            }
+            //page number details
+            $page_num = 1;
+            if(isset($_GET['pag_num'])){
+                $page_num = preg_replace('#[^0-9]#', '', $_GET['pag_num']) ;
+            }
+            if($page_num < 1){
+                $page_num = 1;
+            }else if($page_num > $last_page){
+                $page_num = $last_page;
+            }
+            $limit = ($page_num - 1) * $rows_to_show.', '. $rows_to_show;
+            //fetch the data depending on the page requested
+            $query = "SELECT * FROM notes WHERE `applicant_id`= ".$applicant." ORDER BY `id` DESC LIMIT $limit";
+            $connect = $mysqli->query($query);
+            $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
+            //pagination controls var
+            $paginationCtrl = '';
+            echo '<div>
+                    <form action="" method="POST">
+                        <input type="hidden" name="unset1" value="unset1"/>
+                        <input type="submit" name="back" value="Back To Detail Page"/>
+                    </form>
+                </div><br/>';
+            //pagination navigation start
+            echo '<div class="applicationsList">';
+            if($last_page != 1){
+                $init_next = 2;
+                if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
+                    $second = '&amp;pag_num='.$init_next;
+                    $last_page_addon = '&amp;pag_num='.$last_page;
+                    echo 
+                    "<div>
+                        <a href='".$loc."".$second."'> Next </a>
+                        <a href='".$loc."".$last_page_addon."'> Last </a>
+                    </div>";
+                }else if(isset($_GET['pag_num'])){
+                    $curr_page = $_GET['pag_num'];
+                    if($curr_page == $last_page && $curr_page == 2){
+                        $init_page = '&amp;pag_num=1';
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> Prev </a> 
+                        </div>";
+                    }else if($curr_page != $last_page && $curr_page != 1){
+                        $next_page = $curr_page+1;
+                        $prev_page = $curr_page-1;
+                        $next_page_addon = '&amp;pag_num='.$next_page;
+                        $prev_page_addon = '&amp;pag_num='.$prev_page;
+                        $last_page_addon = '&amp;pag_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            <a href='".$loc."".$next_page_addon."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(($curr_page == $last_page && $curr_page != 1)){
+                        $prev_page = $curr_page-1;
+                        $prev_page_addon = '&amp;page_num='.$prev_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                        </div>";
+                    }
+                }   
+            }
+            //pagination end
+            //Information about the results
+            if($total_row_count != 0){
+                echo '<div class="repeat_reg">';
+                echo 
+                '<div class="thead">
+                    <div class="cname">Name</div>
+                    <div class="note">Notes</div>
+                    <div class="date">Date Created</div>
+                </div>
+                <div class="clear"></div> 
+                ';      
+                while($data = $connect->fetch_array(MYSQLI_ASSOC)){
+                    $timestamp = $data['date'];
+                    $timestampArr = explode(' ', $timestamp);
+                    $date = $timestampArr[0];
+
+                    //get commenters name
+                    $id = $data['admin_id'];
+                    $query3 = "SELECT `name` FROM users WHERE `id`=".$id;
+                    $connect3 = $mysqli->query($query3);
+                    $name=$connect3->fetch_array(MYSQLI_ASSOC);
+                    $name=$name['name'];
+                    echo 
+                    '<div class="tbody">
+                    <div class="cname downer">',$name,'</div>',
+                    '<div class="note downer">',$data['comment'],'</div>',
+                    '<div class="date downer">',$date,'</div>
+                    </div>
+                    <div class="clear"></div>
+                    ';
+                }
+                echo '</div>';
+                echo "<div>", $page_info, "</div>";
+            }
+            if($total_row_count==0){
+                echo "<div id='feedback'>There are no notes to view</div>";
+            }
+            echo '</div>';        
+        }
     }
 }

@@ -473,7 +473,7 @@ class visa_central{
                 <div class="search_2"> ', $status, '</div>';                 
             }
             if(!isset($there)){
-                echo "<div id='feedback'>No results, try another application number</div>";
+                echo "<div class='floating_fb fadeIn'>No results, try another application number</div>";
             }
             echo '</div></div>'; 
         }

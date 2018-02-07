@@ -27,8 +27,17 @@ class visa_central{
     public function update_applicant_info(){
         require('forms/update_info.php');
     }
+    public function update_agents_info(){
+        require('forms/update_agent_info.php');
+    }
+    public function update_users_info(){
+        require('forms/update_users_info.php');
+    }
     public function agentCreationForm(){
         require('forms/create_agent.php');
+    }
+    public function execCreationForm(){
+        require('forms/create_exec.php');
     }
     public function upload_photo($agent, $applicant, $pass_photo){
 
@@ -427,6 +436,7 @@ class visa_central{
             echo '</div>';        
         }
     }
+    
     public function applicationSearch($app_id){
 
         $server = server;
@@ -555,6 +565,52 @@ class visa_central{
 
         }
     }
+    public function getAgentIdFromUserId($user_id){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+
+            $query = "SELECT `id` FROM `agents` WHERE `user_id` = ?";
+            $connect = $db->prepare($query);
+            $connect->bind_param("s", $user_id);
+            $connect->execute();
+            $connect->bind_result($id);
+
+            while($connect->fetch()){
+
+                return $id;
+                                
+            } 
+
+        }
+    }
+    public function getUserIdByAgentNo($agent_no){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+
+            $query = "SELECT `user_id` FROM `agents` WHERE `agent_number` = ?";
+            $connect = $db->prepare($query);
+            $connect->bind_param("s", $agent_no);
+            $connect->execute();
+            $connect->bind_result($id);
+
+            while($connect->fetch()){
+
+                return $id;
+                                
+            } 
+
+        }
+    }
     public function getUsername($email){
 
         $server = server;
@@ -599,6 +655,21 @@ class visa_central{
                                 
             } 
 
+        }
+    }
+    public function getAgentsName($user_id){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+
+            $query = "SELECT `name` FROM users WHERE `id`=".$user_id;
+            $connect = $db->query($query);
+            $name=$connect->fetch_array(MYSQLI_ASSOC);
+            return $name=$name['name'];
         }
     }
     public function getApplicationDetails($applicant, $user){
@@ -684,13 +755,120 @@ class visa_central{
             $timestampArr = explode(' ', $timestamp);
             $date = $timestampArr[0];
             echo 
-                '<div class="tbody">
+                '<div class="tbody1">
                 <div class="agent_alt">',$agent,'</div>',
                 '<div class="app_name">',$name,'</div>',
                 '<div class="ref_id">',$ref_id,'</div>',
                 '<div class="ref_mobile">',$ref_mob,'</div>',
                 '<div class="status">',$status,'</div>',
                 '<div class="date">',$date,'</div>
+                </div>
+                <div class="clear"></div>
+                ';
+            echo 
+            '</div>
+            </div>';
+        }
+    }
+    public function getAgentDetails($agent){
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+            $query = "SELECT `user_id`, `agent_number`, `email`, `phone`, `address`, `contact person` FROM `agents` WHERE `agent_number` = ?";
+            $connect = $db->prepare($query);
+            $connect->bind_param("s", $agent);
+            $connect->execute();
+            $count = $connect->store_result();
+            $connect->bind_result($id, $agent_no, $email, $phone, $address, $contact);
+            $connect->fetch();
+            $connect->close();
+            $name = $this->getAgentsName($id);
+            if(!isset($_SESSION['agent'])){
+                $_SESSION['agent'] =  $name;
+            }else if(isset($_SESSION['agent']) && $_SESSION['agent'] != $name){
+                $_SESSION['agent'] =  $name;
+            }
+            echo 
+            '<div class="applicationsList">
+            <div>
+                <form action="" method="POST">
+                    <input type="hidden" name="unset" value="unset"/>
+                    <input type="submit" name="back" value="Back To Agents List"/>
+                </form>
+            </div>';
+            echo '<div class="repeat_reg">';
+            echo 
+            '<div class="thead">
+                <div class="agent_alt">Name</div>
+                <div class="ref_mobile_alt1">Agent_No</div>
+                <div class="ref_id">Address</div>
+                <div class="con_name">Contact Person</div>
+                <div class="status">Mobile</div>
+                <div class="date">Email Address</div>
+            </div>
+            <div class="clear"></div> 
+            ';
+            echo 
+                '<div class="tbody1">
+                    <div class="agent_alt">'.$name.'</div>
+                    <div class="ref_mobile_alt1">'.$agent_no.'</div>
+                    <div class="ref_id">'.$address.'</div>
+                    <div class="con_name">'.$contact.'</div>
+                    <div class="status">'.$phone.'</div>
+                    <div class="date">'.$email.'</div>
+                </div>
+                <div class="clear"></div>
+                ';
+            echo 
+            '</div>
+            </div>';
+        }
+    }
+    public function getUserDetails($id){
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+                
+        if($db = new mysqli($server, $username, $password, $database)){
+            $query = "SELECT `name`, `email`, `created_at` FROM `users` WHERE `id` = ?";
+            $connect = $db->prepare($query);
+            $connect->bind_param("s", $id);
+            $connect->execute();
+            $count = $connect->store_result();
+            $connect->bind_result($name, $email, $date);
+            $connect->fetch();
+            $connect->close();
+            if(!isset($_SESSION['sel_user'])){
+                $_SESSION['sel_user'] =  $name;
+            }else if(isset($_SESSION['sel_user']) && $_SESSION['sel_user'] != $name){
+                $_SESSION['sel_user'] =  $name;
+            }
+            echo 
+            '<div class="applicationsList">
+            <div>
+                <form action="" method="POST">
+                    <input type="hidden" name="unset" value="unset"/>
+                    <input type="submit" name="back" value="Back To Users List"/>
+                </form>
+            </div>';
+            echo '<div class="repeat_reg">';
+            echo 
+            '<div class="thead">
+                <div class="user_name">User Name</div>
+                <div class="user_email">User Email</div>
+                <div class="user_date">Date Created</div>
+            </div>
+            <div class="clear"></div> 
+            ';
+            echo 
+                '<div class="tbody1">
+                    <div class="user_name">'.$name.'</div>
+                    <div class="user_email">'.$email.'</div>
+                    <div class="user_date">'.$date.'</div>
                 </div>
                 <div class="clear"></div>
                 ';
@@ -791,27 +969,6 @@ class visa_central{
             }
         }
     }
-    public function getUsersInfo($id){
-
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-                
-        if($db = new mysqli($server, $username, $password, $database)){
-
-            $query = "SELECT `name`, `email`, `level`, `title`, `institution` FROM `users` WHERE `id`=?";
-            $connect = $db->prepare($query);
-            $connect->bind_param("s", $id);
-            $connect->execute();
-            $connect->bind_result($name, $email, $level, $title, $institution);
-            while($connect->fetch()){
-                echo '<li class="dit"> <span class="bold">Name: </span>'.$name.' <span class="bold">Email Addres: </span>'.$email.
-                ' <span class="bold">Level: </span>'.$level.' <span class="bold">Title: </span>'.$title.
-                ' <span class="bold">Institution: </span>'.$institution.'</li>';                  
-            }
-        }
-    }
     public function updateApp($to_update, $app_id, $update){
         
         $server = server;
@@ -879,7 +1036,74 @@ class visa_central{
             return $msg = "There was a problem connecting to the database";
         }
     }
-    public function createUser($name, $email, $phone, $pass, $c_pass, $level){
+    public function updateAgent($to_update, $data, $user_id){
+        
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        if($connect = mysqli_connect($server, $username, $password, $database)){
+            if($to_update == "password" || $to_update =="name" || $to_update == "email"){
+
+                if($to_update == "email"){
+                    $data1 = $data;
+                    $to_update1 = $to_update;
+                    $user_id1 = $user_id;
+                    $data = trim(htmlentities($data));
+                    $query1 = "UPDATE `agents` SET `".$to_update."`= ? WHERE `user_id`=? ";
+                    $upd1 = $connect->prepare($query1);
+                    $upd1->bind_param("si", $data, $user_id);
+                    $upd1->execute();
+                    if($upd1->affected_rows >= 1){
+                        $msg1 = "Agent information was successfully updated!";
+                    }else{
+                        $msg1 ="There was an error updating user info!";
+                    }
+                    $data1 = trim(htmlentities($data1));
+                    $query = "UPDATE `users` SET `".$to_update1."`= ? WHERE `id`=? ";
+                    $upd = $connect->prepare($query);
+                    $upd->bind_param("si", $data1, $user_id1);
+                    $upd->execute();
+                    if($upd->affected_rows >= 1){
+                        return "User information was successfully updated! <br/>".$msg1;
+                    }else{
+                        return "There was an error updating user info! <br/>".$msg1;
+                    }
+                }else{
+                    if($to_update == "password"){
+                        $data = md5($data);
+                    }else{
+                        $data = trim(htmlentities($data));
+                    }
+                    $query = "UPDATE `users`  SET `".$to_update."`= ? WHERE `id`=? ";
+                    $upd = $connect->prepare($query);
+                    $upd->bind_param("ss", $data, $user_id);
+                    $upd->execute();
+                    if($upd->affected_rows >= 1){
+                        return "User information was successfully updated!";
+                    }else{
+                        return $msg = "There was an error updation user info!";
+                    }
+                }
+
+            }else{
+                $data = trim(htmlentities($data));
+                $query = "UPDATE `agents`  SET `".$to_update."`= ? WHERE `user_id`=? ";
+                $upd = $connect->prepare($query);
+                $upd->bind_param("ss", $data, $user_id);
+                $upd->execute();
+                if($upd->affected_rows >= 1){
+                    return "User information was successfully updated!";
+                }else{
+                    return $msg = "There was an error updation user info!";
+                }
+            }
+            
+        }else{
+            return $msg = "There was a problem connecting to the database";
+        }
+    }
+    public function createUser($name, $email,$pass, $c_pass, $level){
 
         $server = server;
         $username = server_user;
@@ -887,16 +1111,15 @@ class visa_central{
         $database = site_database;
         $name=trim(htmlentities($name));
         $email=trim(htmlentities($email));
-        $phone=trim(htmlentities($phone));
-        if(!empty($name) && !empty($email) && !empty($phone) && !empty($pass) && !empty($c_pass) && !empty($level)){
+        if(!empty($name) && !empty($email) && !empty($pass) && !empty($c_pass) && !empty($level)){
 
             if($pass == $c_pass){
                 $pass=md5($pass);
                 if($db = new mysqli($server, $username, $password, $database)){
 
-                    $query = "INSERT INTO `users` VALUES('',?,?,?,?,null,?)";
+                    $query = "INSERT INTO `users` VALUES('',?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("sssss", $name, $email, $phone, $pass, $level);
+                    $connect->bind_param("ssss", $name, $email, $pass, $level);
         
                     if($connect->execute()){
                         return 'You successfull added '.$name.' to the database';                   
@@ -976,15 +1199,46 @@ class visa_central{
             $pass = md5($pass);
             if($db = new mysqli($server, $username, $password, $database)){
                 try{
-                    $query = "INSERT INTO `users` VALUES('',?,?,?,?,null,?)";
+                    $query = "INSERT INTO `users` VALUES('',?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("ssiss", $agent_name, $email, $agent_mobile, $pass, $level);                 
+                    $connect->bind_param("ssss", $agent_name, $email, $pass, $level);                 
                     $connect->execute();
                     //get user id
                     $user_id = $this->getUserId($agent_name);
                     if($user_id != 0 && $user_id != null){
                         //$upload_fb = $this->upload_files($agent, $name);
                         return 'User was successfully registered.<br/>'. $this->createAgent($user_id, $agent_number, $email, $agent_mobile, $address, $contact_person);
+                        //$this->sendEmailNotification($entry_level);
+                    }else{
+                        return "Something went wrong while retrieving the user Id.";
+                    }                
+                }catch(Exception $e){
+                    return $e->message;
+                }
+            }else{
+                return 'There is an error with the form, try agin within 24hrs.';
+            }
+        }else{
+            return 'Fill in all required fields.';
+        }
+               
+    }
+    public function regExec($name,$email, $pass){
+
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        $level = 2;
+        if(!empty($name) && !empty($pass) && !empty($email)){
+            $pass = md5($pass);
+            if($db = new mysqli($server, $username, $password, $database)){
+                try{
+                    $query = "INSERT INTO `users` VALUES('',?,?,?,null,?)";
+                    $connect = $db->prepare($query);
+                    $connect->bind_param("ssss", $name, $email,$pass, $level);                 
+                    if($connect->execute()){
+                        return 'User was successfully registered.';
                         //$this->sendEmailNotification($entry_level);
                     }else{
                         return "Something went wrong while retrieving the user Id.";
@@ -1127,6 +1381,254 @@ class visa_central{
             }
             if($total_row_count==0){
                 echo "<div id='feedback'>There are no notes to view</div>";
+            }
+            echo '</div>';        
+        }
+    }
+    public function agentsList(){
+
+        if(isset($_GET['plc'])){
+            $loc =temp_name1."?plc=".$_GET['plc'];
+        }else{
+            $loc = temp_name1;
+        }
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        $row_count = 0;
+        $rows_to_show = 9;
+        if($mysqli = new mysqli($server, $username, $password, $database)){
+
+            $query1 = "SELECT count(id) FROM agents";
+            $connect1 = $mysqli->query($query1);
+            $row = $connect1->fetch_row();//get the number of rows the query returned
+            $total_row_count = $row[0];
+            $last_page = ceil($total_row_count/$rows_to_show);
+            //make sure the last page is never less than 1
+            if($last_page < 1){
+                $last_page = 1;
+            }
+            //page number details
+            $page_num = 1;
+            if(isset($_GET['pag_num'])){
+                $page_num = preg_replace('#[^0-9]#', '', $_GET['pag_num']) ;
+            }
+            if($page_num < 1){
+                $page_num = 1;
+            }else if($page_num > $last_page){
+                $page_num = $last_page;
+            }
+            $limit = ($page_num - 1) * $rows_to_show.', '. $rows_to_show;
+            //fetch the data depending on the page requested
+            $query = "SELECT * FROM agents ORDER BY `id` DESC LIMIT $limit";
+            $connect = $mysqli->query($query);
+            $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
+            //pagination controls var
+            $paginationCtrl = '';
+            //pagination navigation start
+            echo '<div class="applicationsList">';
+            if($last_page != 1){
+                $init_next = 2;
+                if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
+                    $second = '&amp;pag_num='.$init_next;
+                    $last_page_addon = '&amp;pag_num='.$last_page;
+                    echo 
+                    "<div>
+                        <a href='".$loc."".$second."'> Next </a>
+                        <a href='".$loc."".$last_page_addon."'> Last </a>
+                    </div>";
+                }else if(isset($_GET['pag_num'])){
+                    $curr_page = $_GET['pag_num'];
+                    if($curr_page == $last_page && $curr_page == 2){
+                        $init_page = '&amp;pag_num=1';
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> Prev </a> 
+                        </div>";
+                    }else if($curr_page != $last_page && $curr_page != 1){
+                        $next_page = $curr_page+1;
+                        $prev_page = $curr_page-1;
+                        $next_page_addon = '&amp;pag_num='.$next_page;
+                        $prev_page_addon = '&amp;pag_num='.$prev_page;
+                        $last_page_addon = '&amp;pag_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            <a href='".$loc."".$next_page_addon."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(($curr_page == $last_page && $curr_page != 1)){
+                        $prev_page = $curr_page-1;
+                        $prev_page_addon = '&amp;page_num='.$prev_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                        </div>";
+                    }
+                }   
+            }
+            //pagination end
+            //Information about the results
+            if($total_row_count != 0){
+                echo '<div class="repeat_reg">';
+                echo 
+                    '<div class="thead">
+                        <div class="agent_alt">Name</div>
+                        <div class="ref_mobile">Agent_No</div>
+                        <div class="ref_id">Address</div>
+                        <div class="app_name">Contact Person</div>
+                        <div class="status">Mobile</div>
+                        <div class="date">Email Address</div>
+                    </div>
+                <div class="clear"></div> 
+                ';      
+                while($data = $connect->fetch_array(MYSQLI_ASSOC)){
+
+                    //get agents name
+                    $id = $data['user_id'];
+                    $name = $this->getAgentsName($id);
+                    echo 
+                    '<div class="tbody">
+                    <div class="agent_alt">',$name,'</div>',
+                    '<div class="ref_mobile_alt">
+                    <form action="" method="POST">
+                    <input type="hidden" name="agent_info" value="'.$data['agent_number'].'"/>
+                    <input type="submit" value="'.$data['agent_number'].'" />
+                    </form></div>',
+                    '<div class="ref_id">',$data['address'],'</div>',
+                    '<div class="app_name">',$data['contact person'],'</div>',
+                    '<div class="status">',$data['phone'],'</div>',
+                    '<div class="date">',$data['email'],'</div>
+                    </div>
+                    <div class="clear"></div>
+                    ';
+                }
+                echo '</div>';
+                echo "<div>", $page_info, "</div>";
+            }
+            if($total_row_count==0){
+                echo "<div id='feedback'>There are no agents to view</div>";
+            }
+            echo '</div>';        
+        }
+    }
+    public function usersList(){
+
+        if(isset($_GET['plc'])){
+            $loc =temp_name1."?plc=".$_GET['plc'];
+        }else{
+            $loc = temp_name1;
+        }
+        $server = server;
+        $username = server_user;
+        $password = server_pass;
+        $database = site_database;
+        $row_count = 0;
+        $rows_to_show = 9;
+        if($mysqli = new mysqli($server, $username, $password, $database)){
+
+            $query1 = "SELECT count(id) FROM users";
+            $connect1 = $mysqli->query($query1);
+            $row = $connect1->fetch_row();//get the number of rows the query returned
+            $total_row_count = $row[0];
+            $last_page = ceil($total_row_count/$rows_to_show);
+            //make sure the last page is never less than 1
+            if($last_page < 1){
+                $last_page = 1;
+            }
+            //page number details
+            $page_num = 1;
+            if(isset($_GET['page1_num'])){
+                $page_num = preg_replace('#[^0-9]#', '', $_GET['page1_num']) ;
+            }
+            if($page_num < 1){
+                $page_num = 1;
+            }else if($page_num > $last_page){
+                $page_num = $last_page;
+            }
+            $limit = ($page_num - 1) * $rows_to_show.', '. $rows_to_show;
+            //fetch the data depending on the page requested
+            $query = "SELECT * FROM users ORDER BY `id` DESC LIMIT $limit";
+            $connect = $mysqli->query($query);
+            $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
+            //pagination controls var
+            $paginationCtrl = '';
+            //pagination navigation start
+            echo '<div class="applicationsList">';
+            if($last_page != 1){
+                $init_next = 2;
+                if(!isset($_GET['page1_num']) || $_GET['page1_num'] == 1){
+                    $second = '&amp;page1_num='.$init_next;
+                    $last_page_addon = '&amp;page1_num='.$last_page;
+                    echo 
+                    "<div>
+                        <a href='".$loc."".$second."'> Next </a>
+                        <a href='".$loc."".$last_page_addon."'> Last </a>
+                    </div>";
+                }else if(isset($_GET['page1_num'])){
+                    $curr_page = $_GET['page1_num'];
+                    if($curr_page == $last_page && $curr_page == 2){
+                        $init_page = '&amp;page1_num=1';
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> Prev </a> 
+                        </div>";
+                    }else if($curr_page != $last_page && $curr_page != 1){
+                        $next_page = $curr_page+1;
+                        $prev_page = $curr_page-1;
+                        $next_page_addon = '&amp;page1_num='.$next_page;
+                        $prev_page_addon = '&amp;page1_num='.$prev_page;
+                        $last_page_addon = '&amp;page1_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            <a href='".$loc."".$next_page_addon."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(($curr_page == $last_page && $curr_page != 1)){
+                        $prev_page = $curr_page-1;
+                        $prev_page_addon = '&amp;pagee1_num='.$prev_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                        </div>";
+                    }
+                }   
+            }
+            //pagination end
+            //Information about the results
+            if($total_row_count != 0){
+                echo '<div class="repeat_reg">';
+                echo 
+                    '<div class="thead">
+                        <div class="user_name">Name</div>
+                        <div class="user_email">Email</div>
+                        <div class="user_date">Date</div>
+                    </div>
+                <div class="clear"></div> 
+                ';      
+                while($data = $connect->fetch_array(MYSQLI_ASSOC)){
+
+                    //get agents name
+                    echo 
+                    '<div class="tbody">
+                    <div class="user_name">',$data['name'],'</div>',
+                    '<div class="user_email_alt">
+                    <form action="" method="POST">
+                    <input type="hidden" name="exec_info" value="'.$data['id'].'"/>
+                    <input type="submit" value="'.$data['email'].'" />
+                    </form></div>',
+                    '<div class="user_date">',$data['created_at'],'</div>
+                    </div>
+                    <div class="clear"></div>
+                    ';
+                }
+                echo '</div>';
+                echo "<div>", $page_info, "</div>";
+            }
+            if($total_row_count==0){
+                echo "<div id='feedback'>There are no users to view</div>";
             }
             echo '</div>';        
         }

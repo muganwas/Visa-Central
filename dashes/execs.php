@@ -9,13 +9,14 @@
  ?>
 <div class="applications-main">
     <div id="application-form">
-        <div class="header">Add User</div>
+        <div class="header">Add Executive User</div>
+        <div class="clear"></div>
         <?php
             $glip->execCreationForm();
          ?>
     </div>
     <div id="applicants-dits">
-        <div class="header">All User Details</div>
+        <div class="header">Executives Details</div>
         <?php
             if(!isset($_SESSION['exec_info']) && !isset($_POST['exec_info'])){
                 $glip->usersList();
@@ -30,7 +31,7 @@
                     if(isset($_POST['to_update']) && !empty($_POST['to_update'])){
                         $target = $_POST['to_update'];
                         $data = $_POST['update_data'];
-                        echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateAgent($target, $data, $id).'</div>';
+                        echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateUsers($target, $data, $id).'</div>';
                     }
                     echo '</div></div>';
                 }else{
@@ -42,7 +43,7 @@
                     if(isset($_POST['to_update']) && !empty($_POST['to_update'])){
                         $target = $_POST['to_update'];
                         $data = $_POST['update_data'];
-                        echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateAgent($target, $data, $id).'</div>';
+                        echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateUsers($target, $data, $id).'</div>';
                     }
                     echo '</div></div>';
                 }  

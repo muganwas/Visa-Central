@@ -4,27 +4,27 @@
     id="kal" 
     class="<?php
         $url = $_GET['plc'];
-        if($url === 'applications'){
+        if($url =='applications'){
             echo 'active';
         }
      ?>"
       info-tip="Applications"><a id="a1" href="dash.php?plc=applications" alt="Applications"><div class="inner" id="applications"></div></a>
     </li><?php  if(isset($userLevel) && $userLevel > 1){?><li class="<?php
         $url = $_GET['plc'];
-        if($url === 'agents'){
+        if($url == 'agents'){
             echo 'active';
         }
     ?>"
     info-tip="Agents">
     <a href="dash.php?plc=agents"><div class="inner" id="agents"></div></a></li><li class="<?php
         $url = $_GET['plc'];
-        if($url === 'execs'){
+        if($url == 'execs'){
             echo 'active';
         }
     ?>" 
     info-tip="Executives">
     <?php 
-        if($userLevel === 3){?>
+        if($userLevel == 3){?>
         <a href="dash.php?plc=execs"><div class="inner" id="execs"></div></a></li>
     <?php 
         } 

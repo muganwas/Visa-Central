@@ -852,7 +852,7 @@ class visa_central{
             <div>
                 <form action="" method="POST">
                     <input type="hidden" name="unset" value="unset"/>
-                    <input type="submit" name="back" value="Back To Users List"/>
+                    <input type="submit" name="back" value="Back To Executives List"/>
                 </form>
             </div>';
             echo '<div class="repeat_reg">';
@@ -1102,37 +1102,6 @@ class visa_central{
         }else{
             return $msg = "There was a problem connecting to the database";
         }
-    }
-    public function createUser($name, $email,$pass, $c_pass, $level){
-
-        $server = server;
-        $username = server_user;
-        $password = server_pass;
-        $database = site_database;
-        $name=trim(htmlentities($name));
-        $email=trim(htmlentities($email));
-        if(!empty($name) && !empty($email) && !empty($pass) && !empty($c_pass) && !empty($level)){
-
-            if($pass == $c_pass){
-                $pass=md5($pass);
-                if($db = new mysqli($server, $username, $password, $database)){
-
-                    $query = "INSERT INTO `users` VALUES('',?,?,?,null,?)";
-                    $connect = $db->prepare($query);
-                    $connect->bind_param("ssss", $name, $email, $pass, $level);
-        
-                    if($connect->execute()){
-                        return 'You successfull added '.$name.' to the database';                   
-                    } 
-        
-                }
-            }else{
-                return 'The passwords don\'t match';
-            }
-        }else{
-            return 'Please fill all the text fields';
-        }       
-        
     }
     public function createAgent($user_id, $agent_number, $email, $phone, $address, $contact){
 
@@ -1526,9 +1495,10 @@ class visa_central{
         $database = site_database;
         $row_count = 0;
         $rows_to_show = 9;
+        $level = 2;
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
-            $query1 = "SELECT count(id) FROM users";
+            $query1 = "SELECT count(id) FROM users WHERE `level`='".$level."'";
             $connect1 = $mysqli->query($query1);
             $row = $connect1->fetch_row();//get the number of rows the query returned
             $total_row_count = $row[0];
@@ -1549,7 +1519,7 @@ class visa_central{
             }
             $limit = ($page_num - 1) * $rows_to_show.', '. $rows_to_show;
             //fetch the data depending on the page requested
-            $query = "SELECT * FROM users ORDER BY `id` DESC LIMIT $limit";
+            $query = "SELECT * FROM users WHERE `level`='".$level."' ORDER BY `id` DESC LIMIT $limit";
             $connect = $mysqli->query($query);
             $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
             //pagination controls var

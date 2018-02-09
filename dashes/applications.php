@@ -2,25 +2,28 @@
     global $glip;
     global $user;
     global $id;
+    global $userLevel;
 
-    if(isset($_POST['unset'])){
+    if(isset($_POST['unset']) || (isset($_GET['clr']) && $_GET['plc'] == "applications")){
         unset($_SESSION["get_info"]);
     }
  ?>
 <div class="applications-main">
+<?php if($userLevel == 1){ ?>
     <div id="application-form">
         <div class="header">Create Application</div>
         <?php
             $glip->applicationForm();
          ?>
     </div>
-    <div id="applicants-dits">
+<?php } ?>
+    <div class="<?php if($userLevel = 3){echo "left-bottom-round large-sect";} ?>"id="applicants-dits">
         <div class="header">Applicants Details</div>
         <?php
             if(!isset($_SESSION['get_info']) && !isset($_POST['get_info'])){
                 $glip->applicationsList($id, $user);
             }else{
-                if(isset($_POST['unset1'])){
+                if(isset($_POST['unset1']) || (isset($_GET['clr']) && $_GET['plc'] == "applications")){
                     unset($_SESSION['get_comments']);
                 }
                 if(isset($_POST['get_info'])){

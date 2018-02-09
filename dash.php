@@ -18,7 +18,11 @@ if(isset($_SESSION['username']) && (defined('server') && defined('server_user') 
     <!-- end of top section -->
     </div>
    <?php if(isset($_GET['plc']) && $_GET['plc'] === "applications"){
-       $glip->showApplications();
+       if($userLevel == 2){
+            header('location: dash.php?plc=agents');
+       }else{
+            $glip->showApplications();
+       }  
     }else if(isset($_GET['plc']) && $_GET['plc'] === "agents"){
         $glip->showAgents();
     }else if(isset($_GET['plc']) && $_GET['plc'] === "execs"){

@@ -268,7 +268,11 @@ class visa_central{
                     $_SESSION['id'] = $id;
                     $_SESSION['username'] = $name;
                     $_SESSION['level']=$level;
-                    header('location: dash.php?plc=applications'); 
+                    if($level == 2){
+                        header('location: dash.php?plc=agents');
+                    }else{
+                        header('location: dash.php?plc=applications');
+                    } 
                 }else{
 
                     return $msg = "Please fill in the correct credentials <br/> or contact your SYSTEMS ADMIN";
@@ -398,11 +402,12 @@ class visa_central{
                 echo 
                 '<div class="thead">
                     <div class="agent">Agent</div>
-                    <div class="app_no">Form Id</div>
-                    <div class="ref_id">Ref Id</div>
+                    <div class="app_no_alt1">Form Id</div>
+                    <div class="ref_id_alt">Ref Id</div>
                     <div class="ref_mobile">Ref Mobile</div>
                     <div class="status_alt">Status</div>
                     <div class="date">Date Submitted</div>
+                    <div class="view"></div>
                 </div>
                 <div class="clear"></div> 
                 ';      
@@ -413,16 +418,15 @@ class visa_central{
                     echo 
                     '<div class="tbody">
                     <div class="agent">',$data['travel_agent'],'</div>',
-                    '<div class="app_no_alt">
+                    '<div class="app_no_alt1">'.$data['application_number'].'</div>',
+                    '<div class="ref_id_alt">',$data['reference_card_number'],'</div>',
+                    '<div class="ref_mobile">',$data['reference_mobile_number'],'</div>',
+                    '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
+                    '<div class="date">',$date,'</div>',
+                    '<div class="view_alt">
                     <form action="" method="POST">
                     <input type="hidden" name="get_info" value="'.$data['application_number'].'"/>
-                    <input type="submit" value="'.
-                    $data['application_number']
-                    .'" /></form></div>',
-                    '<div class="ref_id">',$data['reference_card_number'],'</div>',
-                    '<div class="ref_mobile">',$data['reference_mobile_number'],'</div>',
-                    '<div class="status_alt">',$data['application_status'],'</div>',
-                    '<div class="date">',$date,'</div>
+                    <input type="submit" value="View/Update" /></form></div>
                     </div>
                     <div class="clear"></div>
                     ';
@@ -760,7 +764,7 @@ class visa_central{
                 '<div class="app_name">',$name,'</div>',
                 '<div class="ref_id">',$ref_id,'</div>',
                 '<div class="ref_mobile">',$ref_mob,'</div>',
-                '<div class="status">',$status,'</div>',
+                '<div class="status">',ucfirst($status),'</div>',
                 '<div class="date">',$date,'</div>
                 </div>
                 <div class="clear"></div>
@@ -1443,12 +1447,13 @@ class visa_central{
                 echo '<div class="repeat_reg">';
                 echo 
                     '<div class="thead">
-                        <div class="agent_alt">Name</div>
+                        <div class="agent">Name</div>
                         <div class="ref_mobile">Agent_No</div>
-                        <div class="ref_id">Address</div>
-                        <div class="app_name">Contact Person</div>
+                        <div class="address">Address</div>
+                        <div class="con_name">Contact Person</div>
                         <div class="status">Mobile</div>
                         <div class="date">Email Address</div>
+                        <div class="view"></div>
                     </div>
                 <div class="clear"></div> 
                 ';      
@@ -1459,16 +1464,17 @@ class visa_central{
                     $name = $this->getAgentsName($id);
                     echo 
                     '<div class="tbody">
-                    <div class="agent_alt">',$name,'</div>',
-                    '<div class="ref_mobile_alt">
+                    <div class="agent">',$name,'</div>',
+                    '<div class="ref_mobile">'.$data['agent_number'].'</div>',
+                    '<div class="address">',$data['address'],'</div>',
+                    '<div class="con_name">',$data['contact person'],'</div>',
+                    '<div class="status">',$data['phone'],'</div>',
+                    '<div class="date">',$data['email'],'</div>',
+                    '<div class="view_alt">
                     <form action="" method="POST">
                     <input type="hidden" name="agent_info" value="'.$data['agent_number'].'"/>
-                    <input type="submit" value="'.$data['agent_number'].'" />
-                    </form></div>',
-                    '<div class="ref_id">',$data['address'],'</div>',
-                    '<div class="app_name">',$data['contact person'],'</div>',
-                    '<div class="status">',$data['phone'],'</div>',
-                    '<div class="date">',$data['email'],'</div>
+                    <input type="submit" value="View/update" />
+                    </form></div>
                     </div>
                     <div class="clear"></div>
                     ';
@@ -1575,6 +1581,7 @@ class visa_central{
                         <div class="user_name">Name</div>
                         <div class="user_email">Email</div>
                         <div class="user_date">Date</div>
+                        <div class="view"></div>
                     </div>
                 <div class="clear"></div> 
                 ';      
@@ -1584,12 +1591,13 @@ class visa_central{
                     echo 
                     '<div class="tbody">
                     <div class="user_name">',$data['name'],'</div>',
-                    '<div class="user_email_alt">
+                    '<div class="user_email">'.$data['email'].'</div>',
+                    '<div class="user_date">',$data['created_at'],'</div>',
+                    '<div class="view_alt">
                     <form action="" method="POST">
                     <input type="hidden" name="exec_info" value="'.$data['id'].'"/>
-                    <input type="submit" value="'.$data['email'].'" />
-                    </form></div>',
-                    '<div class="user_date">',$data['created_at'],'</div>
+                    <input type="submit" value="View/Update" />
+                    </form></div>
                     </div>
                     <div class="clear"></div>
                     ';

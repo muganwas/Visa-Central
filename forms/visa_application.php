@@ -46,7 +46,7 @@
     <input type="text" name="ref_card_no" placeholder="Referee ID Number" required/>
     <input type="text" pattern="^[0-9]+$" name="ref_mobile_no" placeholder="Referee Mobile Number" required/>
     <div class="input_upload">
-        <label for="photo">Applicants Likeness</label><input id="photo" type="file" name="files[]" multiple="multiple" required/>
+        <label for="photo">Applicants Photo</label><input id="photo" type="file" name="files[]" multiple="multiple" required/>
     </div>
     <div class="input_upload">
         <label for="passport">Applicants Passport Copy</label><input id="passport" type="file" name="passport[]" multiple="multiple" required/>

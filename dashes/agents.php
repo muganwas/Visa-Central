@@ -3,7 +3,7 @@
     global $user;
     global $id;
 
-    if(isset($_POST['unset'])){
+    if(isset($_POST['unset']) || (isset($_GET['clr']) && $_GET['plc'] == "agents")){
         unset($_SESSION["agent_info"]);
     }
  ?>

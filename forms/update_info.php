@@ -20,7 +20,7 @@ echo '
     <div class="inline_block">
         <form action="" method="POST">
             <input type="hidden" name="get_comments" value="'.$applicant.'"/>
-            <button class="small-button" type="submit" name="submit">Comments</button>
+            <button class="small-button" type="submit" name="submit">Notes</button>
         </form>
     </div>
     <div class="inline_block">
@@ -51,7 +51,7 @@ echo '
     }
 echo '<form action="" method="POST" enctype="multipart/form-data">
     <select name="status"'.$disabled.'>
-    <option value="'.$status.'">',$status,'</option>'
+    <option value="'.$status.'">',ucfirst($status),'</option>'
     ,$option2
     ,$option3
     ,$option4,'

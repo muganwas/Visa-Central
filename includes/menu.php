@@ -1,7 +1,13 @@
-<?php global $userLevel; ?>
+<?php global $userLevel; $url = $_GET['plc'];
+if(isset($_GET['clr'])){
+    $url2 = $_GET['clr']; 
+}
+$goog = "google.com";
+?>
+
 <div class="Vmenu">
-    <ul>
     <?php if(isset($userLevel) && ($userLevel == 1 || $userLevel == 3)){?>
+    <ul>
     <li
     id="kal" 
     class="<?php
@@ -10,7 +16,15 @@
             echo 'active';
         }
      ?>"
-      info-tip="Applications"><a id="a1" href="dash.php?plc=applications&amp;clr=1" alt="Applications"><div class="inner" id="applications"></div></a>
+      info-tip="Applications"><a id="a1" href="
+      <?php 
+        if($url == 'applications'){
+           echo 'dash.php?plc=applications&amp;clr=1';
+        }else{
+            echo 'dash.php?plc=applications';
+        }
+     ?>
+     " alt="Applications"><div class="inner" id="applications"></div></a>
     </li>
     <?php }?>
     <?php
@@ -22,7 +36,15 @@
         }
     ?>"
     info-tip="Agents">
-    <a href="dash.php?plc=agents&amp;clr=1"><div class="inner" id="agents"></div></a>
+    <a href="
+    <?php 
+        if($url == 'agents'){
+           echo 'dash.php?plc=agents&amp;clr=1';
+        }else{
+            echo 'dash.php?plc=agents';
+        }
+     ?>
+    "><div class="inner" id="agents"></div></a>
     </li>
     <li class="<?php
         $url = $_GET['plc'];
@@ -33,7 +55,15 @@
     info-tip="Executives">
     <?php 
         if($userLevel == 3){?>
-        <a href="dash.php?plc=execs&amp;clr=1"><div class="inner" id="execs"></div></a></li>
+        <a href="
+        <?php 
+        if($url == 'execs'){
+           echo 'dash.php?plc=execs&amp;clr=1';
+        }else{
+            echo 'dash.php?plc=execs';
+        }
+     ?>
+        "><div class="inner" id="execs"></div></a></li>
     <?php 
         } 
     }   

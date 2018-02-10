@@ -79,7 +79,7 @@ class visa_central{
 
                 if(!empty($file_name)){
 
-                    if(($file_extension == 'jpg' || $file_extension == 'png' || $file_extension == 'gif')){//check file extension file type
+                    if(($file_extension == 'jpeg' || $file_extension == 'jpg' || $file_extension == 'png' || $file_extension == 'gif')){//check file extension file type
 
                         if($file_size <= 5000000){//check the size of the file
 
@@ -148,7 +148,7 @@ class visa_central{
 
                 if(!empty($file_name1)){
 
-                    if(($file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
+                    if(($file_extension == 'jpeg' || $file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
 
                         if($file_size1 <= 5000000){//check the size of the file
 
@@ -217,7 +217,7 @@ class visa_central{
 
                 if(!empty($file_name1)){
 
-                    if(($file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
+                    if(($file_extension == 'jpeg' || $file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
 
                         if($file_size1 <= 5000000){//check the size of the file
 
@@ -300,7 +300,11 @@ class visa_central{
         }
     }
     public function applicationsList($agent_id, $agent_name){
-
+        if(isset($_GET['clr'])){
+            $url2 = "&amp;clr=".$_GET['clr']; 
+        }else{
+            $url2="";
+        }
         if(isset($_GET['plc'])){
             $loc =temp_name1."?plc=".$_GET['plc'];
         }else{
@@ -424,9 +428,10 @@ class visa_central{
                     '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
                     '<div class="date">',$date,'</div>',
                     '<div class="view_alt">
+                    
                     <form action="" method="POST">
                     <input type="hidden" name="get_info" value="'.$data['application_number'].'"/>
-                    <input type="submit" value="View/Update" /></form></div>
+                    <input onclick="window.location.href=\''.$loc.'\'" value="View/Update" type="submit"/></form></div>
                     </div>
                     <div class="clear"></div>
                     ';
@@ -694,12 +699,15 @@ class visa_central{
             $mag_shot_jpg= 'uploads/'.$name.'/mag-shot.jpg';
             $mag_shot_png= 'uploads/'.$name.'/mag-shot.png';
             $mag_shot_gif= 'uploads/'.$name.'/mag-shot.gif';
+            $mag_shot_jpeg= 'uploads/'.$name.'/mag-shot.jpeg';
             $passport_jpg= 'uploads/'.$name.'/passport.jpg';
             $passport_png= 'uploads/'.$name.'/passport.png';
             $passport_gif= 'uploads/'.$name.'/passport.gif';
+            $passport_jpeg= 'uploads/'.$name.'/passport.jpeg';
             $visa_jpg= 'uploads/'.$name.'/visa.jpg';
             $visa_png= 'uploads/'.$name.'/visa.png';
             $visa_gif= 'uploads/'.$name.'/visa.gif';
+            $visa_jpeg= 'uploads/'.$name.'/visa.jpeg';
             if(!isset($_SESSION['applicant'])){
                 $_SESSION['applicant'] =  $name;
             }else if(isset($_SESSION['applicant']) && $_SESSION['applicant'] != $name){
@@ -722,6 +730,8 @@ class visa_central{
                     echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_png.'"/></div>';
                 }else if(file_exists($mag_shot_gif)){
                     echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_gif.'"/></div>';
+                }else if(file_exists($mag_shot_jpeg)){
+                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_jpeg.'"/></div>';
                 }else{
                     echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="images/no_image.png"/></div>';
                 }
@@ -731,6 +741,8 @@ class visa_central{
                     echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="'.$passport_png.'"/></div>';
                 }else if(file_exists($passport_gif)){
                     echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="'.$passport_gif.'"/></div>';
+                }else if(file_exists($passport_jpeg)){
+                    echo '<div class="passport-copy-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$passport_jpeg.'"/></div>';
                 }else{
                     echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="images/no_image.png"/></div>';
                 }
@@ -740,6 +752,8 @@ class visa_central{
                     echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="'.$visa_png.'"/></div>';
                 }else if(file_exists($visa_gif)){
                     echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="'.$visa_gif.'"/></div>';
+                }else if(file_exists($visa_jpeg)){
+                    echo '<div class="visa-copy-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$visa_jpeg.'"/></div>';
                 }else{
                     echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="images/no_image.png"/></div>';
                 }

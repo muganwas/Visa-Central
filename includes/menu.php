@@ -2,12 +2,10 @@
 if(isset($_GET['clr'])){
     $url2 = $_GET['clr']; 
 }
-$goog = "google.com";
 ?>
 
 <div class="Vmenu">
-    <?php if(isset($userLevel) && ($userLevel == 1 || $userLevel == 3)){?>
-    <ul>
+    <ul><?php if(isset($userLevel) && ($userLevel == 1 || $userLevel == 3)){?>
     <li
     id="kal" 
     class="<?php

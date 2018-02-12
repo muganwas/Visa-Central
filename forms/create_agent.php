@@ -1,7 +1,7 @@
 <?php
     global $glip;
     if(isset($_POST['agent'])){
-        if(isset($_POST['name']) && isset($_POST['agent_number']) && isset($_POST['address']) && isset($_POST['contact']) && isset($_POST['password']) && isset($_POST['password-confirm']) && isset($_POST['mobile']) && isset($_POST['email'])){
+        if(isset($_POST['name']) && isset($_POST['address']) && isset($_POST['contact']) && isset($_POST['password']) && isset($_POST['password-confirm']) && isset($_POST['mobile']) && isset($_POST['email'])){
             if(isset($_SESSION['username'])){
               $agent = trim(htmlentities($_SESSION['username']));
             }else{
@@ -13,7 +13,15 @@
                 $feedback = "The passwords don't match";
             }else{
                 $agent_name= trim(htmlentities($_POST['name']));
-                $agent_number= trim(htmlentities($_POST['agent_number']));
+                //random agent number generator
+                $agent_noArr = [];
+                $ranNumLen = 7;
+                for($count=0;$count<$ranNumLen; $count++){
+                    $ranNum = rand(0,9);
+                    $agent_noArr[$count]=$ranNum;
+                }
+                //end of random number generator
+                $agent_number= implode("", $agent_noArr);
                 $address = trim(htmlentities($_POST['address']));
                 $contact_person = trim(htmlentities($_POST['contact']));
                 $agent_mobile = trim(htmlentities($_POST['mobile']));
@@ -30,7 +38,6 @@
 <?php }?>
 <form action="" method="POST">
     <input type="hidden" value="agent" name="agent" />
-    <input type="text" name="agent_number" placeholder="Agent Number" required/>
     <input type="text" name="name" placeholder="Agents Name" required/>
     <input type="text" name="address" placeholder="Agents Address" required/>
     <input type="text" name="contact" placeholder="Contact Person" required/>

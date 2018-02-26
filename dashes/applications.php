@@ -17,7 +17,12 @@
          ?>
     </div>
 <?php } ?>
-    <div class="<?php if($userLevel = 3){echo "left-bottom-round large-sect";} ?>"id="applicants-dits">
+    <div class="<?php if($userLevel == 3){ 
+            echo "left-bottom-round large-sect";
+        }else{
+            echo "right-bottom-round large-sect";
+        } 
+        ?>"id="applicants-dits">
         <div class="header">Applicants Details</div>
         <?php
             if(!isset($_SESSION['get_info']) && !isset($_POST['get_info'])){
@@ -76,6 +81,7 @@
             }
          ?>
     </div>
+    <?php if(isset($userLevel) && $userLevel==3){?>
     <div id="search-results">
         <div class="header">Search Results</div>
         <?php 
@@ -85,4 +91,5 @@
         } 
         ?>
     </div>
+    <?php } ?>
 </div>

@@ -9,6 +9,7 @@ if(isset($_SESSION['username']) && (defined('server') && defined('server_user') 
     $fname = $glip->getUsername($id);
     //start of top section
     echo '<div class="header_sect">';
+    echo '<div class="logo_dash"></div>';
     echo '<div class="top_widget"><div id="user_welcome">Welcome <span class="name">', $user,'!</span></div>';
     ?>
     <div id="logout"><a href="dash.php?logout=yes">Logout</a></div>

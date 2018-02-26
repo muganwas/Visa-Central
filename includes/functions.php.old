@@ -405,7 +405,10 @@ class visa_central{
                 echo '<div class="repeat_reg">';
                 echo 
                 '<div class="thead">
-                    <div class="app_no_alt1">Application Number</div>
+                    <div class="agent">Agent</div>
+                    <div class="app_no_alt1">Form Id</div>
+                    <div class="ref_id_alt">Ref Id</div>
+                    <div class="ref_mobile">Ref Mobile</div>
                     <div class="status_alt">Status</div>
                     <div class="date">Date Submitted</div>
                     <div class="view"></div>
@@ -417,8 +420,11 @@ class visa_central{
                     $timestampArr = explode(' ', $timestamp);
                     $date = $timestampArr[0];
                     echo 
-                    '<div class="tbody">',
+                    '<div class="tbody">
+                    <div class="agent">',$data['travel_agent'],'</div>',
                     '<div class="app_no_alt1">'.$data['application_number'].'</div>',
+                    '<div class="ref_id_alt">',$data['reference_card_number'],'</div>',
+                    '<div class="ref_mobile">',$data['reference_mobile_number'],'</div>',
                     '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
                     '<div class="date">',$date,'</div>',
                     '<div class="view_alt">
@@ -431,7 +437,7 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
-                echo "<div class='page-info'>", $page_info, "</div>";
+                echo "<div>", $page_info, "</div>";
             }
             if($total_row_count==0){
                 echo "<div id='feedback'>There are no applications to view</div>";
@@ -682,30 +688,30 @@ class visa_central{
         $database = site_database;
                 
         if($db = new mysqli($server, $username, $password, $database)){
-            $query = "SELECT `id`, `travel_agent`, `application_number`, `created`, `application_status` FROM `applications` WHERE `application_number` = ?";
+            $query = "SELECT `id`, `travel_agent`, `name`, `reference_card_number`, `reference_mobile_number`, `created`, `application_status` FROM `applications` WHERE `application_number` = ?";
             $connect = $db->prepare($query);
             $connect->bind_param("s", $applicant);
             $connect->execute();
             $count = $connect->store_result();
-            $connect->bind_result($id, $agent, $app_num, $date, $status);
+            $connect->bind_result($id, $agent, $name, $ref_id, $ref_mob, $date, $status);
             $connect->fetch();
             $connect->close();
-            $mag_shot_jpg= 'uploads/'.$app_num.'/mag-shot.jpg';
-            $mag_shot_png= 'uploads/'.$app_num.'/mag-shot.png';
-            $mag_shot_gif= 'uploads/'.$app_num.'/mag-shot.gif';
-            $mag_shot_jpeg= 'uploads/'.$app_num.'/mag-shot.jpeg';
-            $passport_jpg= 'uploads/'.$app_num.'/passport.jpg';
-            $passport_png= 'uploads/'.$app_num.'/passport.png';
-            $passport_gif= 'uploads/'.$app_num.'/passport.gif';
-            $passport_jpeg= 'uploads/'.$app_num.'/passport.jpeg';
-            $visa_jpg= 'uploads/'.$app_num.'/visa.jpg';
-            $visa_png= 'uploads/'.$app_num.'/visa.png';
-            $visa_gif= 'uploads/'.$app_num.'/visa.gif';
-            $visa_jpeg= 'uploads/'.$app_num.'/visa.jpeg';
+            $mag_shot_jpg= 'uploads/'.$name.'/mag-shot.jpg';
+            $mag_shot_png= 'uploads/'.$name.'/mag-shot.png';
+            $mag_shot_gif= 'uploads/'.$name.'/mag-shot.gif';
+            $mag_shot_jpeg= 'uploads/'.$name.'/mag-shot.jpeg';
+            $passport_jpg= 'uploads/'.$name.'/passport.jpg';
+            $passport_png= 'uploads/'.$name.'/passport.png';
+            $passport_gif= 'uploads/'.$name.'/passport.gif';
+            $passport_jpeg= 'uploads/'.$name.'/passport.jpeg';
+            $visa_jpg= 'uploads/'.$name.'/visa.jpg';
+            $visa_png= 'uploads/'.$name.'/visa.png';
+            $visa_gif= 'uploads/'.$name.'/visa.gif';
+            $visa_jpeg= 'uploads/'.$name.'/visa.jpeg';
             if(!isset($_SESSION['applicant'])){
-                $_SESSION['applicant'] =  $app_num;
-            }else if(isset($_SESSION['applicant']) && $_SESSION['applicant'] != $app_num){
-                $_SESSION['applicant'] =  $app_num;
+                $_SESSION['applicant'] =  $name;
+            }else if(isset($_SESSION['applicant']) && $_SESSION['applicant'] != $name){
+                $_SESSION['applicant'] =  $name;
             }
             echo 
             '<div class="applicationsList">
@@ -755,7 +761,9 @@ class visa_central{
             echo 
             '<div class="thead">
                 <div class="agent_alt">Agent</div>
-                <div class="app_name">Application Number</div>
+                <div class="app_name">Name</div>
+                <div class="ref_id">Ref Id</div>
+                <div class="ref_mobile">Ref Mobile</div>
                 <div class="status">Status</div>
                 <div class="date">Date Submitted</div>
             </div>
@@ -767,7 +775,9 @@ class visa_central{
             echo 
                 '<div class="tbody1">
                 <div class="agent_alt">',$agent,'</div>',
-                '<div class="app_name">',$app_num,'</div>',
+                '<div class="app_name">',$name,'</div>',
+                '<div class="ref_id">',$ref_id,'</div>',
+                '<div class="ref_mobile">',$ref_mob,'</div>',
                 '<div class="status">',ucfirst($status),'</div>',
                 '<div class="date">',$date,'</div>
                 </div>
@@ -810,23 +820,23 @@ class visa_central{
             echo '<div class="repeat_reg">';
             echo 
             '<div class="thead">
-                <div class="a-agent">Name</div>
+                <div class="agent_alt">Name</div>
                 <div class="ref_mobile_alt1">Agent_No</div>
                 <div class="ref_id">Address</div>
                 <div class="con_name">Contact Person</div>
-                <div class="mob">Mobile</div>
-                <div class="email">Email Address</div>
+                <div class="status">Mobile</div>
+                <div class="date">Email Address</div>
             </div>
             <div class="clear"></div> 
             ';
             echo 
                 '<div class="tbody1">
-                    <div class="a-agent">'.$name.'</div>
+                    <div class="agent_alt">'.$name.'</div>
                     <div class="ref_mobile_alt1">'.$agent_no.'</div>
                     <div class="ref_id">'.$address.'</div>
                     <div class="con_name">'.$contact.'</div>
-                    <div class="mob">'.$phone.'</div>
-                    <div class="email">'.$email.'</div>
+                    <div class="status">'.$phone.'</div>
+                    <div class="date">'.$email.'</div>
                 </div>
                 <div class="clear"></div>
                 ';
@@ -1133,22 +1143,22 @@ class visa_central{
         }       
         
     }
-    public function submitForm($agent, $app_no, $status, $pass_photo, $passport){
+    public function submitForm($agent, $app_no, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status, $pass_photo, $passport){
 
         $server = server;
         $username = server_user;
         $password = server_pass;
         $database = site_database;
-        if(!empty($agent) && !empty($status)){
+        if(!empty($agent) && !empty($name) && !empty($passport_no) && !empty($ref_id_no) && !empty($ref_mobile_no) && !empty($status)){
 
             if($db = new mysqli($server, $username, $password, $database)){
                 try{
-                    $query = "INSERT INTO `applications` VALUES('',?,?,'null','null','null',000,null,?)";
+                    $query = "INSERT INTO `applications` VALUES('',?,?,?,?,?,?,null,?)";
                     $connect = $db->prepare($query);
-                    $connect->bind_param("sss", $agent, $app_no, $status);                 
+                    $connect->bind_param("sssssis", $agent, $app_no, $name, $passport_no, $ref_id_no, $ref_mobile_no, $status);                 
                     if($connect->execute()){
                         //$upload_fb = $this->upload_files($agent, $name);
-                        return 'Application creation was successful, thank you.<br/>'. $this->upload_photo($agent, $app_no, $pass_photo).'<br/>'.$this->upload_passport($agent, $app_no, $passport);
+                        return 'Application creation was successful, thank you.<br/>'. $this->upload_photo($agent, $name, $pass_photo).'<br/>'.$this->upload_passport($agent, $name, $passport);
                         //$this->sendEmailNotification($entry_level);
                     }else{
                         return 'Something went wrong, please try again.';
@@ -1354,7 +1364,7 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
-                echo "<div class='page-info'>", $page_info, "</div>";
+                echo "<div>", $page_info, "</div>";
             }
             if($total_row_count==0){
                 echo "<div id='feedback'>There are no notes to view</div>";
@@ -1451,12 +1461,12 @@ class visa_central{
                 echo '<div class="repeat_reg">';
                 echo 
                     '<div class="thead">
-                        <div class="a-agent">Name</div>
+                        <div class="agent">Name</div>
                         <div class="ref_mobile">Agent_No</div>
                         <div class="address">Address</div>
                         <div class="con_name">Contact Person</div>
-                        <div class="mob">Mobile</div>
-                        <div class="email">Email Address</div>
+                        <div class="status">Mobile</div>
+                        <div class="date">Email Address</div>
                         <div class="view"></div>
                     </div>
                 <div class="clear"></div> 
@@ -1468,12 +1478,12 @@ class visa_central{
                     $name = $this->getAgentsName($id);
                     echo 
                     '<div class="tbody">
-                    <div class="a-agent">',$name,'</div>',
+                    <div class="agent">',$name,'</div>',
                     '<div class="ref_mobile">'.$data['agent_number'].'</div>',
                     '<div class="address">',$data['address'],'</div>',
                     '<div class="con_name">',$data['contact person'],'</div>',
-                    '<div class="mob">',$data['phone'],'</div>',
-                    '<div class="email">',$data['email'],'</div>',
+                    '<div class="status">',$data['phone'],'</div>',
+                    '<div class="date">',$data['email'],'</div>',
                     '<div class="view_alt">
                     <form action="" method="POST">
                     <input type="hidden" name="agent_info" value="'.$data['agent_number'].'"/>
@@ -1484,7 +1494,7 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
-                echo "<div class='page-info'>", $page_info, "</div>";
+                echo "<div>", $page_info, "</div>";
             }
             if($total_row_count==0){
                 echo "<div id='feedback'>There are no agents to view</div>";
@@ -1607,7 +1617,7 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
-                echo "<div class='page-info'>", $page_info, "</div>";
+                echo "<div>", $page_info, "</div>";
             }
             if($total_row_count==0){
                 echo "<div id='feedback'>There are no users to view</div>";

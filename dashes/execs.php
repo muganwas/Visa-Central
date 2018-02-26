@@ -15,7 +15,7 @@
             $glip->execCreationForm();
          ?>
     </div>
-    <div id="applicants-dits">
+    <div id="applicants-dits" class="right-bottom-round large-sect">
         <div class="header">Executives Details</div>
         <?php
             if(!isset($_SESSION['exec_info']) && !isset($_POST['exec_info'])){
@@ -49,14 +49,5 @@
                 }  
             }
          ?>
-    </div>
-    <div id="search-results">
-        <div class="header">Search Results</div>
-        <?php 
-        if(isset($_POST['search_text'])){
-            $id = $_POST['search_text'];
-            $glip->applicationSearch($id);
-        } 
-        ?>
     </div>
 </div>

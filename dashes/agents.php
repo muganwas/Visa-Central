@@ -14,7 +14,7 @@
             $glip->agentCreationForm();
          ?>
     </div>
-    <div id="applicants-dits">
+    <div id="applicants-dits" class="right-bottom-round large-sect">
         <div class="header">Agents Details</div>
         <?php
             if(!isset($_SESSION['agent_info']) && !isset($_POST['agent_info'])){
@@ -50,14 +50,5 @@
                 }  
             }
          ?>
-    </div>
-    <div id="search-results">
-        <div class="header">Search Results</div>
-        <?php 
-        if(isset($_POST['search_text'])){
-            $id = $_POST['search_text'];
-            $glip->applicationSearch($id);
-        } 
-        ?>
     </div>
 </div>

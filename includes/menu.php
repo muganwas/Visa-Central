@@ -23,11 +23,7 @@ if(isset($_GET['clr'])){
         }
      ?>
      " alt="Applications"><div class="inner" id="applications"></div></a>
-    </li>
-    <?php }?>
-    <?php
-    if(isset($userLevel) && $userLevel > 1){?>
-    <li class="<?php
+    </li><?php }?><?php if(isset($userLevel) && $userLevel > 1){?><li class="<?php
         $url = $_GET['plc'];
         if($url == 'agents'){
             echo 'active';
@@ -43,8 +39,7 @@ if(isset($_GET['clr'])){
         }
      ?>
     "><div class="inner" id="agents"></div></a>
-    </li>
-    <li class="<?php
+    </li><li class="<?php
         $url = $_GET['plc'];
         if($url == 'execs'){
             echo 'active';
@@ -67,7 +62,7 @@ if(isset($_GET['clr'])){
     }   
     ?>
     </ul>
-    <?php if(isset($userLevel) && ($userLevel == 1 || $userLevel == 3)){?>
+    <?php if(isset($userLevel) && $userLevel == 3 && $_GET['plc']== "applications"){?>
     <div class="search">
         <form action="" method="POST">
             <input id="search" placeholder="Search for Application by ID" name="search_text" type="text" />

@@ -434,7 +434,7 @@ class visa_central{
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
-                echo "<div id='feedback'>There are no applications to view</div>";
+                echo "<div id='info'>There are no applications to view</div>";
             }
             echo '</div>';        
         }
@@ -1487,7 +1487,7 @@ class visa_central{
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
-                echo "<div id='feedback'>There are no agents to view</div>";
+                echo "<div id='info'>There are no agents to view</div>";
             }
             echo '</div>';        
         }
@@ -1610,7 +1610,7 @@ class visa_central{
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
-                echo "<div id='feedback'>There are no users to view</div>";
+                echo "<div id='info'>There are no exec to view</div>";
             }
             echo '</div>';        
         }

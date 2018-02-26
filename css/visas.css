@@ -17,7 +17,7 @@ li {
 
 .main {
     box-sizing: content-box;
-    margin-top: 206px;
+    margin-top: 163px;
     background: #ffffff;
 }
 
@@ -177,9 +177,10 @@ li {
 }
 
 .Vmenu li {
+    cursor: pointer;
     display: inline-block;
     box-sizing: border-box;
-    padding: 12px 0;
+    padding: 5px 0;
     margin: 0;
 }
 .Vmenu li .inner {
@@ -190,32 +191,20 @@ li {
     padding-left: 30px;
 }
 .Vmenu li #applications {
-    min-height: 50px;
-    width: 80px;
-    background: url('../images/icons/applications_black.png');
     background-repeat: no-repeat;
-    background-size: 50px;
     background-position: center;
 }
 .Vmenu li #agents {
-    min-height: 50px;
-    min-width: 80px;
-    background: url('../images/icons/agents_black.png');
     background-repeat: no-repeat;
-    background-size: 50px;
     background-position: center;
 }
 .Vmenu li #execs {
-    min-height: 50px;
-    min-width: 80px;
-    background: url('../images/icons/execs_black.png');
     background-repeat: no-repeat;
-    background-size: 50px;
     background-position: center;
 }
 .Vmenu li a {
     position: relative;
-    color: white;
+    color: #3c3c3c;
     margin: 0;
     font-weight: 600;
     font-size: 16px;
@@ -225,15 +214,15 @@ li {
 
 .Vmenu li:hover {
     margin: 0;
-    -webkit-transition: background 0.3s linear;
-    -moz-transition: background 0.3s linear;
-    -ms-transition: background 0.3s linear;
-    -o-transition: background 0.3s linear;
-    transition: background 0.3s linear;   
+    background: #9a9bc9;   
+}
+.Vmenu li:hover a {
+    color: white;
 }
 .Vmenu .active {
     margin: 0;
     background: #ffffff;
+    
 }
 .search {
     position: absolute;

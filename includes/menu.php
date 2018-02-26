@@ -22,7 +22,7 @@ if(isset($_GET['clr'])){
             echo 'dash.php?plc=applications';
         }
      ?>
-     " alt="Applications"><div class="inner" id="applications"></div></a>
+     " alt="Applications"><div class="inner" id="applications">Applications</div></a>
     </li><?php }?><?php if(isset($userLevel) && $userLevel > 1){?><li class="<?php
         $url = $_GET['plc'];
         if($url == 'agents'){
@@ -38,7 +38,7 @@ if(isset($_GET['clr'])){
             echo 'dash.php?plc=agents';
         }
      ?>
-    "><div class="inner" id="agents"></div></a>
+    "><div class="inner" id="agents">Agents</div></a>
     </li><li class="<?php
         $url = $_GET['plc'];
         if($url == 'execs'){
@@ -56,7 +56,7 @@ if(isset($_GET['clr'])){
             echo 'dash.php?plc=execs';
         }
      ?>
-        "><div class="inner" id="execs"></div></a></li>
+        "><div class="inner" id="execs">Executives</div></a></li>
     <?php 
         } 
     }   

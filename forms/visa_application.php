@@ -43,7 +43,7 @@
     }
  ?>
 <?php if(isset($feedback)){?>
-    <div id="feedback"><?php echo $feedback; ?></div>
+    <div id="feedback1"><?php echo $feedback; ?></div>
 <?php }?>
 <form action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" value="application" name="application" />

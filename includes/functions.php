@@ -217,7 +217,7 @@ class visa_central{
 
                 if(!empty($file_name1)){
 
-                    if(($file_extension == 'jpeg' || $file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
+                    if(($file_extension1 == 'jpeg' || $file_extension1 == 'jpg' || $file_extension1 == 'png' || $file_extension1 == 'gif')){//check file extension file type
 
                         if($file_size1 <= 5000000){//check the size of the file
 

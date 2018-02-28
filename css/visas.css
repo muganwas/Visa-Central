@@ -107,6 +107,18 @@ li {
     border: solid thin #878686;
     box-shadow: 0 1px #b6b6b6;
 }
+#feedback1 {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    color: #3c3c3c;
+    border-radius: 5px;
+    background: #ebebf5;
+    border: solid thin #878686;
+}
 #feedback {
     display: block;
     position: absolute;

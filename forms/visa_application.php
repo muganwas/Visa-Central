@@ -30,7 +30,7 @@
                 }
                 //end of random num generator
                 $app_no= strtoupper(implode("", $app_noArr));
-                $status = "applied";
+                $status = "processing";
                 $pass_photo="mag-shot";
                 $pass_copy="passport";
             

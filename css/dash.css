@@ -443,7 +443,19 @@
 .details_images {
     width: 100%
 }
+.details_images a {
+    padding: 0;
+    border: none;
+    height: auto;
+    background: none;
+    box-sizing: border-box;
+    position: relative;
+}
+.details_images a:hover {
+    background: none;
+}
 .mag-shot {
+    display: inline-block;
     width: auto;
     height: 70px;
 }
@@ -453,9 +465,20 @@
     text-align: center;
     min-width: 130px;
     position: relative;
-    margin: 0;
-    padding: 15px 0 0;
+    margin: 1px 1px 10px;
     background: #ffffff;
+    border: thin solid #9b9b9b;
+}
+.mag-shot-container .title{
+    position: relative;
+    color: #1a1a1a;
+    box-sizing: border-box;
+    padding: 3px;
+    margin-bottom: 5px;
+    background: #e1e1e1;
+    width: 100%;
+    font-weight: bold;
+    display: inline-block;
 }
 .passport-copy {
     width: auto;
@@ -467,9 +490,20 @@
     text-align: center;
     min-width: 130px;
     position: relative;
-    margin: 0;
-    padding: 15px 0 0;
+    margin: 1px 1px 10px;
     background: #ffffff;
+    border: thin solid #9b9b9b;
+}
+.passport-copy-container .title{
+    position: relative;
+    color: #1a1a1a;
+    box-sizing: border-box;
+    padding: 3px;
+    margin-bottom: 5px;
+    background: #e1e1e1;
+    width: 100%;
+    font-weight: bold;
+    display: inline-block;
 }
 .visa-copy {
     width: auto;
@@ -481,9 +515,20 @@
     text-align: center;
     min-width: 130px;
     position: relative;
-    margin: 0;
-    padding: 15px 0 0;
+    margin: 1px 1px 10px;
     background: #ffffff;
+    border: thin solid #9b9b9b;
+}
+.visa-copy-container .title{
+    position: relative;
+    color: #1a1a1a;
+    box-sizing: border-box;
+    padding: 3px;
+    margin-bottom: 5px;
+    background: #e1e1e1;
+    width: 100%;
+    font-weight: bold;
+    display: inline-block;
 }
 .small-button{
     box-sizing: border-box;

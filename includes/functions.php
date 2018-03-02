@@ -719,37 +719,52 @@ class visa_central{
             <div class="details_images">';
 
                 if(file_exists($mag_shot_jpg)){
-                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_jpg.'"/></div>';
+                    echo '<a href="'.$mag_shot_jpg.'" target="_blank"><div class="mag-shot-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_jpg.'"/></div></a>';
                 }else if(file_exists($mag_shot_png)){
-                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_png.'"/></div>';
+                    echo '<a href="'.$mag_shot_png.'" target="_blank"><div class="mag-shot-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_png.'"/></div></a>';
                 }else if(file_exists($mag_shot_gif)){
-                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_gif.'"/></div>';
+                    echo '<a href="'.$mag_shot_gif.'" target="_blank"><div class="mag-shot-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_gif.'"/></div></a>';
                 }else if(file_exists($mag_shot_jpeg)){
-                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_jpeg.'"/></div>';
+                    echo '<a href="'.$mag_shot_jpeg.'" target="_blank"><div class="mag-shot-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$mag_shot_jpeg.'"/></div></a>';
                 }else{
-                    echo '<div class="mag-shot-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="images/no_image.png"/></div>';
+                    echo '<div class="mag-shot-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="images/no_image.png"/></div>';
                 }
                 if(file_exists($passport_jpg)){
-                    echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="'.$passport_jpg.'"/></div>';
+                    echo '<a href="'.$passport_jpg.'" target="_blank"><div class="passport-copy-container">
+                    <div class="title">Passport Copy</div><img class="passport-copy" src="'.$passport_jpg.'"/></div></a>';
                 }else if(file_exists($passport_png)){
-                    echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="'.$passport_png.'"/></div>';
+                    echo '<a href="'.$passport_png.'" target="_blank"><div class="passport-copy-container">
+                    <div class="title">Passport Copy</div><img class="passport-copy" src="'.$passport_png.'"/></div></a>';
                 }else if(file_exists($passport_gif)){
-                    echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="'.$passport_gif.'"/></div>';
+                    echo '<a href="'.$passport_gif.'" target="_blank"><div class="passport-copy-container">
+                    <div class="title">Passport Copy</div><img class="passport-copy" src="'.$passport_gif.'"/></div></a>';
                 }else if(file_exists($passport_jpeg)){
-                    echo '<div class="passport-copy-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$passport_jpeg.'"/></div>';
+                    echo '<a href="'.$passport_jpeg.'" target="_blank"><div class="passport-copy-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$passport_jpeg.'"/></div></a>';
                 }else{
-                    echo '<div class="passport-copy-container"><div class="float_left">Passport Copy</div><img class="passport-copy" src="images/no_image.png"/></div>';
+                    echo '<div class="passport-copy-container">
+                    <div class="title">Passport Copy</div><img class="passport-copy" src="images/no_image.png"/></div>';
                 }
                 if(file_exists($visa_jpg)){
-                    echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="'.$visa_jpg.'"/></div>';
+                    echo '<a href="'.$visa_jpg.'" target="_blank" download="'.$visa_jpg.'"><div class="visa-copy-container">
+                    <div class="title">Visa Copy</div><img class="visa-copy" src="'.$visa_jpg.'"/></div></a>';
                 }else if(file_exists($visa_png)){
-                    echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="'.$visa_png.'"/></div>';
+                    echo '<a href="'.$visa_png.'" target="_blank" download="'.$visa_png.'"><div class="visa-copy-container">
+                    <div class="title">Visa Copy</div><img class="visa-copy" src="'.$visa_png.'"/></div></a>';
                 }else if(file_exists($visa_gif)){
-                    echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="'.$visa_gif.'"/></div>';
+                    echo '<a href="'.$visa_gif.'" target="_blank" download="'.$visa_gif.'"><div class="visa-copy-container">
+                    <div class="title">Visa Copy</div><img class="visa-copy" src="'.$visa_gif.'"/></div></a>';
                 }else if(file_exists($visa_jpeg)){
-                    echo '<div class="visa-copy-container"><div class="float_left">Passport Photo</div><img class="mag-shot" src="'.$visa_jpeg.'"/></div>';
+                    echo '<a href="'.$visa_jpeg.'" target="_blank" download="'.$visa_jpeg.'"><div class="visa-copy-container">
+                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$visa_jpeg.'"/></div></a>';
                 }else{
-                    echo '<div class="visa-copy-container"><div class="float_left">Visa Copy</div><img class="visa-copy" src="images/no_image.png"/></div>';
+                    echo '<div class="visa-copy-container">
+                    <div class="title">Visa Copy</div><img class="visa-copy" src="images/no_image.png"/></div>';
                 }
             echo '</div>';
             echo 

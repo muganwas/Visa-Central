@@ -32,29 +32,21 @@ echo '
     
     ';
     
-    if($status == "applied"){
-        $option2 = '<option value="processing">Processing</option>';
-        $option3 = '<option value="ready">Ready</option>';
-        $option4 = '<option value="rejected">Rejected</option>';
-    }else if($status == "processing"){ 
+    if($status == "processing"){ 
         $option2 = '<option value="ready">Ready</option>';
-        $option3 = '<option value="applied">Applied</option>';
-        $option4 = '<option value="rejected">Rejected</option>';
+        $option3 = '<option value="rejected">Rejected</option>';
     }else if($status == "ready"){
-        $option2 = '<option value="applied">Applied</option>';
-        $option3 = '<option value="processing">Processing</option>';
-        $option4 = '<option value="rejected">Rejected</option>';
+        $option2 = '<option value="processing">Processing</option>';
+        $option3 = '<option value="rejected">Rejected</option>';
     }else if($status == "rejected"){
-        $option2 = '<option value="applied">Applied</option>';
-        $option3 = '<option value="processing">Processing</option>';
-        $option4 = '<option value="rejected">Ready</option>';
+        $option2 = '<option value="processing">Processing</option>';
+        $option3 = '<option value="rejected">Ready</option>';
     }
 echo '<form action="" method="POST" enctype="multipart/form-data">
     <select name="status"'.$disabled.'>
     <option value="'.$status.'">',ucfirst($status),'</option>'
     ,$option2
-    ,$option3
-    ,$option4,'
+    ,$option3,'
     </select>
     <div class="visa '.$disabled.'">
         <label for="visa">Upload Visa Copy</label>

@@ -8,13 +8,15 @@
     }
  ?>
 <div class="applications-main">
-    <div id="application-form">
-        <div class="header">Add Agent</div>
-        <?php
-            $glip->agentCreationForm();
-         ?>
-    </div>
-    <div id="applicants-dits" class="right-bottom-round large-sect">
+    <div id="applicants-dits" class="bottom-round full-sect">
+        <?php if(!isset($_SESSION['agent_info']) && !isset($_POST['agent_info'])){ ?>
+        <div id="application-form">
+            <div class="header">Add Agent</div>
+            <?php
+                $glip->agentCreationForm();
+            ?>
+        </div>
+        <?php } ?>
         <div class="header">Agents Details</div>
         <?php
             if(!isset($_SESSION['agent_info']) && !isset($_POST['agent_info'])){

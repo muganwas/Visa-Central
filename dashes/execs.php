@@ -8,14 +8,16 @@
     }
  ?>
 <div class="applications-main">
-    <div id="application-form">
-        <div class="header">Add Executive User</div>
-        <div class="clear"></div>
-        <?php
-            $glip->execCreationForm();
-         ?>
-    </div>
-    <div id="applicants-dits" class="right-bottom-round large-sect">
+    <div id="applicants-dits" class="bottom-round full-sect">
+        <?php if(!isset($_SESSION['exec_info']) && !isset($_POST['exec_info'])){ ?>
+            <div id="application-form">
+                <div class="header">Add Executive User</div>
+                <div class="clear"></div>
+                <?php
+                    $glip->execCreationForm();
+                ?>
+            </div>
+        <?php }?>
         <div class="header">Executives Details</div>
         <?php
             if(!isset($_SESSION['exec_info']) && !isset($_POST['exec_info'])){

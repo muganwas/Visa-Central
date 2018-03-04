@@ -34,7 +34,7 @@
     }
  ?>
 <?php if(isset($feedback)){?>
-    <div id="feedback"><?php echo $feedback; ?></div>
+    <div class="floating_fb"><?php echo $feedback; ?></div>
 <?php }?>
 <form action="" method="POST">
     <input type="hidden" value="agent" name="agent" />

@@ -14,9 +14,6 @@
 .large-sect{
     width: 85%!important;
 }
-.full-sect{
-    width: 100%!important;
-}
 .float_left{
     font-weight: bold;
     color: #020202;
@@ -51,38 +48,22 @@
     background: #ffffff;
     color: #000000;
     font-weight: bold;
-    text-align: left;
     border-bottom:thin solid #b6b6b6;
     padding: 5px 10px; 
 }
 #application-form {
     position: relative;
-    display: block;
-    text-align: center;
     box-sizing: border-box;
+    float: left;
     border-top: none;
     border-bottom: thin solid #b6b6b6;
     border-left: thin solid #b6b6b6;
     border-right: thin solid #b6b6b6;
     background: #ffffff;
-}
-#application-form input[type="submit"]{
-    width: 200px;
-}
-#application-form input[type="text"]{
-    width: 200px;
-}
-#application-form input[type="email"]{
-    width: 200px;
-}
-#application-form input[type="password"]{
-    width: 200px;
-}
-#application-form input[type="file"]{
-    width: 200px;
-}
-#application-form input{
-    display: inline-block;
+    border-bottom-left-radius: 6px;
+    box-shadow: -2px 2px 2px #b6b6b6;
+    height: 500px;
+    width: 20%;
 }
 #applicants-dits {
     box-sizing: border-box;
@@ -93,7 +74,7 @@
     border-right: thin solid #b6b6b6;
     background: #ffffff;
     box-shadow: 0 2px 2px #b6b6b6;
-    min-height:400px;
+    height: 500px;
     min-width: 65%;
 }
 #applicants-dits input{
@@ -127,7 +108,7 @@
     background: #ffffff;
     border-bottom-right-radius: 6px;
     box-shadow: 0 2px 2px #b6b6b6;
-    min-height: 400px;
+    height: 500px;
     max-height: 95%;
     width: 15%;
 }
@@ -191,9 +172,11 @@
 }
 .applications-main .input_upload {
     font-size: 13px;
-    display:inline-block;
+    display: block;
     margin: 3px 10px 15px;
     max-width: 100%;
+    height: 30px;
+    width: 300px;
     padding: 2px;
 }
 .applications-main #info {
@@ -580,7 +563,7 @@
     box-sizing: border-box;
     text-align: center;
     margin: 0;
-    top: 30%;
+    top: 40%;
     left: 40%;
     padding: 10px;
     font-size: 14px;

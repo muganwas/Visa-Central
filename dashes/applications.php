@@ -9,20 +9,23 @@
     }
  ?>
 <div class="applications-main">
-<?php if($userLevel == 1){ ?>
-    <div id="application-form">
-        <div class="header">Create Application</div>
-        <?php
-            $glip->applicationForm();
-         ?>
-    </div>
-<?php } ?>
     <div class="<?php if($userLevel == 3){ 
             echo "left-bottom-round large-sect";
+        }else if($userLevel == 1){
+            echo "bottom-round full-sect";            
         }else{
             echo "right-bottom-round large-sect";
-        } 
+        }
         ?>"id="applicants-dits">
+        <!-- application form-->
+        <?php if($userLevel == 1 && !isset($_POST['get_info']) && !isset($_SESSION['get_info']) && !isset($_POST['get_comments']) && !isset($_SESSION['get_comments'])){ ?>
+            <div id="application-form">
+                <div class="header">Create Application</div>
+                <?php
+                    $glip->applicationForm();
+                ?>
+            </div>
+        <?php } ?>
         <div class="header">Applicants Details</div>
         <?php
             if(!isset($_SESSION['get_info']) && !isset($_POST['get_info'])){

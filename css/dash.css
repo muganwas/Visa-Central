@@ -94,6 +94,7 @@
     background: #d8d8d8;
     border: solid thin #b1b1b1;
     cursor: pointer;
+    z-index:0;
 }
 #application-form input{
     display: inline-block;
@@ -617,6 +618,7 @@
     width: 300px;
     background: #e8ebfa;
     box-shadow: 1px 2px #bfbfbf;
+    z-index: 10000000 ;
 }
 #notes{
     width: 99%;
@@ -630,12 +632,22 @@
 }
 .view_button{
     width: 100px!important;
-    float: right;
+    float: left;
     padding: 0!important;
     height: 25px!important;
 }
 .visa_link {
     display: block;
     float: left;
+    margin: 2px 8px 0 0;
+}
+.unavailable{
+    color: #9b9b9b;
+    float: left;
+    display: block;
     margin: 2px 5px 0 0;
+}
+.phototxt{
+    color: #5844d8;
+    font-weight: normal;
 }

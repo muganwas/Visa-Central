@@ -54,11 +54,13 @@
     <input type="text" pattern="^[0-9]+$" name="ref_mobile_no" placeholder="Referee Mobile Number" required/>-->
     <div class="input_upload">
         <label for="photo" class="upload_button">Applicants Photo: </label>
-        <input id="photo" type="file" name="files[]" multiple="multiple" required/>
+        <input id="photo" type="file" name="files[]" required/>
+        <span class="phototxt" id="photoName"></span>
     </div>
     <div class="input_upload">
         <label for="passport" class="upload_button">Applicants Passport Copy: </label>
-        <input id="passport" type="file" name="passport[]" multiple="multiple" required/>
+        <input id="passport" type="file" name="passport[]" required/>
+        <span class="phototxt" id="passportPhotoName"></span>
     </div>
     <input type="submit" value="Submit"/>
 </form>

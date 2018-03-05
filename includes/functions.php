@@ -425,7 +425,7 @@ class visa_central{
                     '<div class="date1">',$date,'</div>',
                     '<div class="view_alt1">';
                     //checking whether the application has been approved and what format the visa image is in
-                    if( $data['application_status'] == "approved" && (file_exists($visa_uri.'.jpg') || file_exists($visa_uri.'.jpeg') || file_exists($visa_uri.'.gif') || file_exists($visa_uri.'.png'))){
+                    if( $data['application_status'] == "ready" && (file_exists($visa_uri.'.jpg') || file_exists($visa_uri.'.jpeg') || file_exists($visa_uri.'.gif') || file_exists($visa_uri.'.png'))){
                         if(file_exists($visa_uri.'.jpg')){
                             echo '<a class="visa_link" download="'.$visa_uri.'.jpg'.'" href="'.$visa_uri.'.jpg'.'">Download Visa</a>';
                         }else if(file_exists($visa_uri.'.jpeg')){
@@ -435,8 +435,10 @@ class visa_central{
                         }else if(file_exists($visa_uri.'.png')){
                             echo '<a class="visa_link" download="'.$visa_uri.'.png'.'" href="'.$visa_uri.'.png'.'">Download Visa</a>';
                         }else{
-                            echo 'Visa format unknown';
+                            echo '<span class="unavailable">Unknown format</span>';
                         }  
+                    }else{
+                        echo '<span class="unavailable">Visa Unavailable</span>';
                     }
                     echo '
                     <form action="" method="POST">

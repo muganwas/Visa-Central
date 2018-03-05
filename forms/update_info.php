@@ -50,7 +50,7 @@ echo '<form action="" method="POST" enctype="multipart/form-data">
     </select>
     <div class="visa '.$disabled.'">
         <label for="visa">Upload Visa Copy</label>
-        <input id="visa" type="file" name="visa[]" multiple="multiple" '.$disabled.'/>
+        <input id="visa" type="file" name="visa[]" '.$disabled.'/>
     </div>
     <button class="small-button '.$disabled.'" type="submit" name="submit" '.$disabled.'>Save Changes</button>
 </form>

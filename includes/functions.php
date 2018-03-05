@@ -424,6 +424,7 @@ class visa_central{
                     '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
                     '<div class="date1">',$date,'</div>',
                     '<div class="view_alt1">';
+                    //checking whether the application has been approved and what format the visa image is in
                     if( $data['application_status'] == "approved" && (file_exists($visa_uri.'.jpg') || file_exists($visa_uri.'.jpeg') || file_exists($visa_uri.'.gif') || file_exists($visa_uri.'.png'))){
                         if(file_exists($visa_uri.'.jpg')){
                             echo '<a class="visa_link" download="'.$visa_uri.'.jpg'.'" href="'.$visa_uri.'.jpg'.'">Download Visa</a>';

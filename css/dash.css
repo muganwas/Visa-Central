@@ -77,7 +77,23 @@
     width: 200px;
 }
 #application-form input[type="file"]{
+    display: none;
     width: 200px;
+}
+.upload_button {
+    position: relative;
+}
+.upload_button:after{
+    float: right;
+    margin: -8px 0 0 5px;
+    padding: 7px 0 0 0;
+    width: 100px;
+    height: 20px;
+    content: " Browse ";
+    border-radius: 3px;
+    background: #d8d8d8;
+    border: solid thin #b1b1b1;
+    cursor: pointer;
 }
 #application-form input{
     display: inline-block;
@@ -189,6 +205,7 @@
 }
 .applications-main .input_upload {
     font-size: 13px;
+    font-weight: bold;
     display:inline-block;
     margin: 3px 10px 15px;
     max-width: 100%;
@@ -335,6 +352,17 @@
     padding: 0!important;
     width: 11%;
 }
+.view1{
+    display: block;
+    width: 24%;
+    height: 100%;
+    content: "";
+}
+.view_alt1{
+    overflow: hidden!important;
+    padding: 0!important;
+    width: 24%;
+}
 .ref_id {
     width: 12%;
 }
@@ -367,6 +395,9 @@
 }
 .date {
     width: 33%;
+}
+.date1 {
+    width: 20%;
 }
 .email{
     width: 17%;
@@ -596,4 +627,15 @@
     font-size: 14px;
     margin-left: 5px;
     border:thin solid #d1d1d1;
+}
+.view_button{
+    width: 100px!important;
+    float: right;
+    padding: 0!important;
+    height: 25px!important;
+}
+.visa_link {
+    display: block;
+    float: left;
+    margin: 2px 5px 0 0;
 }

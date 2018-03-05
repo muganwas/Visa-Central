@@ -316,6 +316,7 @@ class visa_central{
         $database = site_database;
         $row_count = 0;
         $rows_to_show = 9;
+        $visa = "uploads/";
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
             $query2 = "SELECT `level` FROM `users` WHERE `name` ='".$agent_name."'";
@@ -407,8 +408,8 @@ class visa_central{
                 '<div class="thead">
                     <div class="app_no_alt1">Application Number</div>
                     <div class="status_alt">Status</div>
-                    <div class="date">Date Submitted</div>
-                    <div class="view"></div>
+                    <div class="date1">Date Submitted</div>
+                    <div class="view1"></div>
                 </div>
                 <div class="clear"></div> 
                 ';      
@@ -416,16 +417,30 @@ class visa_central{
                     $timestamp = $data['created'];
                     $timestampArr = explode(' ', $timestamp);
                     $date = $timestampArr[0];
+                    $visa_uri = $visa.$data['application_number'].'/visa';
                     echo 
                     '<div class="tbody">',
                     '<div class="app_no_alt1">'.$data['application_number'].'</div>',
                     '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
-                    '<div class="date">',$date,'</div>',
-                    '<div class="view_alt">
-                    
+                    '<div class="date1">',$date,'</div>',
+                    '<div class="view_alt1">';
+                    if( $data['application_status'] == "approved" && (file_exists($visa_uri.'.jpg') || file_exists($visa_uri.'.jpeg') || file_exists($visa_uri.'.gif') || file_exists($visa_uri.'.png'))){
+                        if(file_exists($visa_uri.'.jpg')){
+                            echo '<a class="visa_link" download="'.$visa_uri.'.jpg'.'" href="'.$visa_uri.'.jpg'.'">Download Visa</a>';
+                        }else if(file_exists($visa_uri.'.jpeg')){
+                            echo '<a class="visa_link" download="'.$visa_uri.'.jpeg'.'" href="'.$visa_uri.'.jpeg'.'">Download Visa</a>';
+                        }else if(file_exists($visa_uri.'.gif')){
+                            echo '<a class="visa_link" download="'.$visa_uri.'.gif'.'" href="'.$visa_uri.'.gif'.'">Download Visa</a>';
+                        }else if(file_exists($visa_uri.'.png')){
+                            echo '<a class="visa_link" download="'.$visa_uri.'.png'.'" href="'.$visa_uri.'.png'.'">Download Visa</a>';
+                        }else{
+                            echo 'Visa format unknown';
+                        }  
+                    }
+                    echo '
                     <form action="" method="POST">
                     <input type="hidden" name="get_info" value="'.$data['application_number'].'"/>
-                    <input onclick="window.location.href=\''.$loc.'\'" value="View/Update" type="submit"/></form></div>
+                    <input class="view_button" onclick="window.location.href=\''.$loc.'\'" value="View/Update" type="submit"/></form></div>
                     </div>
                     <div class="clear"></div>
                     ';

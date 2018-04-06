@@ -150,6 +150,7 @@ li {
 .header_sect #user_welcome{
     color: #000000;
     float: left;
+    height: 25px;
     font-size: 14px;
     cursor: pointer;
     background-color: #f8f4f4;
@@ -161,6 +162,7 @@ li {
 }
 .header_sect #logout {
     float: right;
+    height: 25px;
     font-size: 14px;
     background-color: #f8f4f4;
     box-shadow: -2px 2px 2px #1e233c;

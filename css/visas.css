@@ -198,6 +198,8 @@ input[type="submit"], button, .applications-main a {
 }
 
 .Vmenu li {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     cursor: pointer;
     display: inline-block;
     box-sizing: border-box;
@@ -233,6 +235,8 @@ input[type="submit"], button, .applications-main a {
 }
 
 .Vmenu li:hover {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     margin: 0;
     background: #c4c5ed;   
 }

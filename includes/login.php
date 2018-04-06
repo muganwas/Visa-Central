@@ -1,7 +1,7 @@
 <div class="login_container">
-<?php 
+<?php
+$glip = new visa_central;
 if(isset($_POST['email']) && isset($_POST['password'])){
-    $glip = new visa_central;
     $email = trim(htmlentities($_POST['email']));
     $password = $_POST['password'];
     $feedback = $glip->login($email, $password);

@@ -1,6 +1,7 @@
 .absolute {
     position: absolute;
 }
+/*
 .left-bottom-round{
     border-bottom-left-radius: 6px;
 }
@@ -10,7 +11,7 @@
 .bottom-round{
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-}
+}*/
 .large-sect{
     width: 85%!important;
 }
@@ -36,7 +37,7 @@
     width: 0;
 }
 .applications-main {
-    color: #000000;
+    color: #383838;
     box-sizing: border-box;
     display: flex;
     position: absolute;
@@ -49,10 +50,11 @@
 }
 .applications-main .header {
     background: #ffffff;
-    color: #000000;
+    color: #555555;
     font-weight: bold;
     text-align: left;
-    border-bottom:thin solid #b6b6b6;
+    margin: 0 5px!important;
+    border-bottom:thin dashed #d8d8d8;
     padding: 5px 10px; 
 }
 #application-form {
@@ -107,9 +109,8 @@
     border-left: thin solid #b6b6b6;
     border-right: thin solid #b6b6b6;
     background: #ffffff;
-    box-shadow: 0 2px 2px #b6b6b6;
     min-height:400px;
-    min-width: 65%;
+    min-width: 60%;
 }
 #applicants-dits input{
     box-sizing: border-box;
@@ -137,14 +138,11 @@
     float: left;
     border-top: none;
     border-bottom: thin solid #b6b6b6;
-    border-left: thin solid #b6b6b6;
     border-right: thin solid #b6b6b6;
     background: #ffffff;
-    border-bottom-right-radius: 6px;
-    box-shadow: 0 2px 2px #b6b6b6;
     min-height: 400px;
     max-height: 95%;
-    width: 15%;
+    width: 20%;
 }
 #application-form form {
     margin-top: 30px;
@@ -255,7 +253,6 @@
     flex-direction: column;
     box-sizing: border-box;
     overflow: hidden;
-    padding: 5px;
     margin: 10px 0;
     color: #555555;
     background: #ffffff;
@@ -303,15 +300,30 @@
     font-size: 13px;
     font-weight: bold;
 }
+.thead>div {
+    background: #dbdbeb!important; 
+    border: none!important;
+    margin: 1px;
+}
+.thead1>div {
+    background: #dbdbeb!important; 
+    border: none!important;
+    margin: 1px;
+}
 .tbody {
     color: #000000;
     font-size: 14px;
     
 }
+.tbody>div{
+    padding-left: 10px!important;
+}
 .tbody1 {
     color: #000000;
     font-size: 14px;
-    
+}
+.tbody1>div{
+    padding-left: 10px!important;
 }
 .app_name {
     overflow: hidden!important;
@@ -343,26 +355,29 @@
     width: 33%;
 }
 .view{
-    display: block;
+    display: none;
     width: 11%;
     height: 100%;
     content: "";
+    
 }
 .view_alt{
     overflow: hidden!important;
-    padding: 0!important;
+    padding: 0 0 0 10px!important;
     width: 11%;
+    border: none!important;
 }
 .view1{
-    display: block;
-    width: 24%;
+    display: none;
+    width: 23%;
     height: 100%;
     content: "";
 }
 .view_alt1{
     overflow: hidden!important;
-    padding: 0!important;
+    padding: 0 0 0 10px!important;
     width: 24%;
+    border: none!important;
 }
 .ref_id {
     width: 12%;
@@ -395,7 +410,7 @@
     width: 10%;
 }
 .date {
-    width: 33%;
+    width: 32%;
 }
 .date1 {
     width: 20%;
@@ -421,16 +436,16 @@
     width: 29%;
 }
 .search_1 {
-    width: 50%;
+    width: 48%;
 }
 .search_2 {
-    width: 50%
+    width: 48%
 }
 .dit_cell {
     width: 150px;
 }
 .thead div{
-    color: #000000;
+    color: #2b2b2b;
     background: #ffffff;
     border: thin solid #b6b6b6;
     min-height: 27px;
@@ -440,31 +455,36 @@
     padding: 5px 5px;
 }
 .tbody div{
-    color:#000000;
+    box-sizing: border-box;
+    color:#3a3a3a;
     overflow: hidden;
     float: left;
     box-sizing: border-box;
-    padding: 5px 5px;
+    padding: 9px 5px;
+    margin: 0 0 10px;
+    border-bottom: thin dashed #9b9b9b;
 }
 .tbody1 div{
+    box-sizing: border-box;
     overflow: hidden;
     overflow-wrap: break-word;
     float: left;
     box-sizing: border-box;
     padding: 5px 5px;
+    border-bottom: thin dashed #9b9b9b;
 }
 .search-rez{
     padding: 10px;
 }
 .search-rez input[type=submit] {
-    color: #000000;
+    color: #333333!important;
     display: inline-block;
     text-align: left;
     box-sizing: border-box;
     width: 90%;
     height: 90%;
     font-size: 12px;
-    background: none;
+    background: none!important;
     margin: 0;
     border: 0;
     box-shadow: none;
@@ -472,13 +492,16 @@
     padding: 0;
 }
 .search-rez input[type=submit]:hover {
-    color: #5844d8;
+    color: #3624ae;
     background: none;
     margin: 0;
     border: 0;
     box-shadow: none;
     border-radius: 0;
     padding: 0;
+}
+#search-results{
+    flex: content;
 }
 #search-results .head{
     font-weight: bold;
@@ -492,6 +515,7 @@
 }
 .details_images a {
     padding: 0;
+    background: none!important;
     border: none;
     height: auto;
     background: none;
@@ -586,9 +610,8 @@
     border-radius: 2px;
     margin-bottom: 3px;
     background: #a2a2a2;
-    border: solid thin #aeaeae;
-    box-shadow: 0 2px #555555;
-    color: #000000;
+    border:none!important;
+    color: #5f5f5f;
     font-size: 13px;
     cursor: pointer;
 }

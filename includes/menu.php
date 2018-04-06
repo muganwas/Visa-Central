@@ -65,7 +65,7 @@ if(isset($_GET['clr'])){
     <?php if(isset($userLevel) && $userLevel == 3 && $_GET['plc']== "applications"){?>
     <div class="search">
         <form action="" method="POST">
-            <input id="search" placeholder="Search for Application by ID" name="search_text" type="text" />
+            <input id="search" placeholder="Search for Application by Number" name="search_text" type="text" />
         </form>
     </div>
     <?php } ?>

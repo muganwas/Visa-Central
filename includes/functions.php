@@ -763,7 +763,7 @@ class visa_central{
                     <div class="title">Passport Copy</div><img class="passport-copy" src="'.$passport_gif.'"/></div></a>';
                 }else if(file_exists($passport_jpeg)){
                     echo '<a href="'.$passport_jpeg.'" target="_blank"><div class="passport-copy-container">
-                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$passport_jpeg.'"/></div></a>';
+                    <div class="title">Passport Copy</div><img class="mag-shot" src="'.$passport_jpeg.'"/></div></a>';
                 }else{
                     echo '<div class="passport-copy-container">
                     <div class="title">Passport Copy</div><img class="passport-copy" src="images/no_image.png"/></div>';
@@ -779,7 +779,7 @@ class visa_central{
                     <div class="title">Visa Copy</div><img class="visa-copy" src="'.$visa_gif.'"/></div></a>';
                 }else if(file_exists($visa_jpeg)){
                     echo '<a href="'.$visa_jpeg.'" target="_blank" download="'.$visa_jpeg.'"><div class="visa-copy-container">
-                    <div class="title">Passport Photo</div><img class="mag-shot" src="'.$visa_jpeg.'"/></div></a>';
+                    <div class="title">Visa Copy</div><img class="mag-shot" src="'.$visa_jpeg.'"/></div></a>';
                 }else{
                     echo '<div class="visa-copy-container">
                     <div class="title">Visa Copy</div><img class="visa-copy" src="images/no_image.png"/></div>';

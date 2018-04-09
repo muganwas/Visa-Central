@@ -224,7 +224,8 @@ class visa_central{
                             $last_name1 = $location.$visa.'.'.$file_extension1;
 
                             if(move_uploaded_file($tmp_name1, $last_name1)){
-                                return $file_name1.' Uploaded ';
+                                //return $file_name1.' Uploaded ';
+                                echo "<meta http-equiv='refresh' content='0'>";
                             }
                             else{
                                 return $file_name1.' already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
@@ -315,7 +316,7 @@ class visa_central{
         $password = server_pass;
         $database = site_database;
         $row_count = 0;
-        $rows_to_show = 9;
+        $rows_to_show = 6;
         $visa = "uploads/";
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
@@ -358,49 +359,7 @@ class visa_central{
             $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
             //pagination controls var
             $paginationCtrl = '';
-            //pagination navigation start
             echo '<div class="applicationsList">';
-            if($last_page != 1){
-                $init_next = 2;
-                if(!isset($_GET['page_num']) || $_GET['page_num'] == 1){
-                    $second = '&amp;page_num='.$init_next;
-                    $last_page_addon = '&amp;page_num='.$last_page;
-                    echo 
-                    "<div>
-                        <a href='".$loc."".$second."'> Next </a>
-                        <a href='".$loc."".$last_page_addon."'> Last </a>
-                    </div>";
-                }else if(isset($_GET['page_num'])){
-                    $curr_page = $_GET['page_num'];
-                    if($curr_page == $last_page && $curr_page == 2){
-                        $init_page = '&amp;page_num=1';
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> Prev </a> 
-                        </div>";
-                    }else if($curr_page != $last_page && $curr_page != 1){
-                        $next_page = $curr_page+1;
-                        $prev_page = $curr_page-1;
-                        $next_page_addon = '&amp;page_num='.$next_page;
-                        $prev_page_addon = '&amp;page_num='.$prev_page;
-                        $last_page_addon = '&amp;page_num='.$last_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                            <a href='".$loc."".$next_page_addon."'> Next </a>
-                            <a href='".$loc."".$last_page_addon."'> Last </a>
-                        </div>";
-                    }else if(($curr_page == $last_page && $curr_page != 1)){
-                        $prev_page = $curr_page-1;
-                        $prev_page_addon = '&amp;page_num='.$prev_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                        </div>";
-                    }
-                }   
-            }
-            //pagination end
             //Information about the results
             if($total_row_count != 0){
                 echo '<div class="repeat_reg">';
@@ -449,6 +408,48 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
+                //pagination navigation start
+                if($last_page != 1){
+                    $init_next = 2;
+                    if(!isset($_GET['page_num']) || $_GET['page_num'] == 1){
+                        $second = '&amp;page_num='.$init_next;
+                        $last_page_addon = '&amp;page_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."".$second."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(isset($_GET['page_num'])){
+                        $curr_page = $_GET['page_num'];
+                        if($curr_page == $last_page && $curr_page == 2){
+                            $init_page = '&amp;page_num=1';
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> Prev </a> 
+                            </div>";
+                        }else if($curr_page != $last_page && $curr_page != 1){
+                            $next_page = $curr_page+1;
+                            $prev_page = $curr_page-1;
+                            $next_page_addon = '&amp;page_num='.$next_page;
+                            $prev_page_addon = '&amp;page_num='.$prev_page;
+                            $last_page_addon = '&amp;page_num='.$last_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                                <a href='".$loc."".$next_page_addon."'> Next </a>
+                                <a href='".$loc."".$last_page_addon."'> Last </a>
+                            </div>";
+                        }else if(($curr_page == $last_page && $curr_page != 1)){
+                            $prev_page = $curr_page-1;
+                            $prev_page_addon = '&amp;page_num='.$prev_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            </div>";
+                        }
+                    }   
+                }
+                //pagination end
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
@@ -1023,7 +1024,7 @@ class visa_central{
             $upd->bind_param("ss", $update, $app_id);
             $upd->execute();
             if($upd->affected_rows >= 1){
-                return "User ".$to_update." was successfully updated!";
+                echo "<meta http-equiv='refresh' content='0'>";
             }else{
                 return $msg = "There was an error updating user ".$to_update;
             }
@@ -1048,7 +1049,7 @@ class visa_central{
             $upd->bind_param("ss", $data, $id);
             $upd->execute();
             if($upd->affected_rows >= 1){
-                return "User information was successfully updated!";
+                echo "<meta http-equiv='refresh' content='0'>";
             }else{
                 return $msg = "There was an error updation user info!";
             }
@@ -1106,7 +1107,7 @@ class visa_central{
                     $upd->bind_param("si", $data1, $user_id1);
                     $upd->execute();
                     if($upd->affected_rows >= 1){
-                        return "User information was successfully updated! <br/>".$msg1;
+                        echo "<meta http-equiv='refresh' content='0'>";
                     }else{
                         return "There was an error updating user info! <br/>".$msg1;
                     }
@@ -1121,7 +1122,7 @@ class visa_central{
                     $upd->bind_param("ss", $data, $user_id);
                     $upd->execute();
                     if($upd->affected_rows >= 1){
-                        return "User information was successfully updated!";
+                        echo "<meta http-equiv='refresh' content='0'>";
                     }else{
                         return $msg = "There was an error updation user info!";
                     }
@@ -1134,7 +1135,7 @@ class visa_central{
                 $upd->bind_param("ss", $data, $user_id);
                 $upd->execute();
                 if($upd->affected_rows >= 1){
-                    return "User information was successfully updated!";
+                    echo "<meta http-equiv='refresh' content='0'>";
                 }else{
                     return $msg = "There was an error updation user info!";
                 }
@@ -1306,55 +1307,13 @@ class visa_central{
             $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
             //pagination controls var
             $paginationCtrl = '';
+            echo '<div class="applicationsList">';
             echo '<div>
                     <form action="" method="POST">
                         <input type="hidden" name="unset1" value="unset1"/>
                         <input type="submit" name="back" value="Back To Detail Page"/>
                     </form>
                 </div><br/>';
-            //pagination navigation start
-            echo '<div class="applicationsList">';
-            if($last_page != 1){
-                $init_next = 2;
-                if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
-                    $second = '&amp;pag_num='.$init_next;
-                    $last_page_addon = '&amp;pag_num='.$last_page;
-                    echo 
-                    "<div>
-                        <a href='".$loc."".$second."'> Next </a>
-                        <a href='".$loc."".$last_page_addon."'> Last </a>
-                    </div>";
-                }else if(isset($_GET['pag_num'])){
-                    $curr_page = $_GET['pag_num'];
-                    if($curr_page == $last_page && $curr_page == 2){
-                        $init_page = '&amp;pag_num=1';
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> Prev </a> 
-                        </div>";
-                    }else if($curr_page != $last_page && $curr_page != 1){
-                        $next_page = $curr_page+1;
-                        $prev_page = $curr_page-1;
-                        $next_page_addon = '&amp;pag_num='.$next_page;
-                        $prev_page_addon = '&amp;pag_num='.$prev_page;
-                        $last_page_addon = '&amp;pag_num='.$last_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                            <a href='".$loc."".$next_page_addon."'> Next </a>
-                            <a href='".$loc."".$last_page_addon."'> Last </a>
-                        </div>";
-                    }else if(($curr_page == $last_page && $curr_page != 1)){
-                        $prev_page = $curr_page-1;
-                        $prev_page_addon = '&amp;page_num='.$prev_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                        </div>";
-                    }
-                }   
-            }
-            //pagination end
             //Information about the results
             if($total_row_count != 0){
                 echo '<div class="repeat_reg">';
@@ -1387,6 +1346,49 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
+                //pagination navigation start
+                
+                if($last_page != 1){
+                    $init_next = 2;
+                    if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
+                        $second = '&amp;pag_num='.$init_next;
+                        $last_page_addon = '&amp;pag_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."".$second."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(isset($_GET['pag_num'])){
+                        $curr_page = $_GET['pag_num'];
+                        if($curr_page == $last_page && $curr_page == 2){
+                            $init_page = '&amp;pag_num=1';
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> Prev </a> 
+                            </div>";
+                        }else if($curr_page != $last_page && $curr_page != 1){
+                            $next_page = $curr_page+1;
+                            $prev_page = $curr_page-1;
+                            $next_page_addon = '&amp;pag_num='.$next_page;
+                            $prev_page_addon = '&amp;pag_num='.$prev_page;
+                            $last_page_addon = '&amp;pag_num='.$last_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                                <a href='".$loc."".$next_page_addon."'> Next </a>
+                                <a href='".$loc."".$last_page_addon."'> Last </a>
+                            </div>";
+                        }else if(($curr_page == $last_page && $curr_page != 1)){
+                            $prev_page = $curr_page-1;
+                            $prev_page_addon = '&amp;page_num='.$prev_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            </div>";
+                        }
+                    }   
+                }
+                //pagination end
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
@@ -1407,7 +1409,7 @@ class visa_central{
         $password = server_pass;
         $database = site_database;
         $row_count = 0;
-        $rows_to_show = 9;
+        $rows_to_show = 6;
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
             $query1 = "SELECT count(id) FROM agents";
@@ -1436,49 +1438,7 @@ class visa_central{
             $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
             //pagination controls var
             $paginationCtrl = '';
-            //pagination navigation start
             echo '<div class="applicationsList">';
-            if($last_page != 1){
-                $init_next = 2;
-                if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
-                    $second = '&amp;pag_num='.$init_next;
-                    $last_page_addon = '&amp;pag_num='.$last_page;
-                    echo 
-                    "<div>
-                        <a href='".$loc."".$second."'> Next </a>
-                        <a href='".$loc."".$last_page_addon."'> Last </a>
-                    </div>";
-                }else if(isset($_GET['pag_num'])){
-                    $curr_page = $_GET['pag_num'];
-                    if($curr_page == $last_page && $curr_page == 2){
-                        $init_page = '&amp;pag_num=1';
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> Prev </a> 
-                        </div>";
-                    }else if($curr_page != $last_page && $curr_page != 1){
-                        $next_page = $curr_page+1;
-                        $prev_page = $curr_page-1;
-                        $next_page_addon = '&amp;pag_num='.$next_page;
-                        $prev_page_addon = '&amp;pag_num='.$prev_page;
-                        $last_page_addon = '&amp;pag_num='.$last_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                            <a href='".$loc."".$next_page_addon."'> Next </a>
-                            <a href='".$loc."".$last_page_addon."'> Last </a>
-                        </div>";
-                    }else if(($curr_page == $last_page && $curr_page != 1)){
-                        $prev_page = $curr_page-1;
-                        $prev_page_addon = '&amp;page_num='.$prev_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                        </div>";
-                    }
-                }   
-            }
-            //pagination end
             //Information about the results
             if($total_row_count != 0){
                 echo '<div class="repeat_reg">';
@@ -1517,6 +1477,49 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
+                //pagination navigation start
+                
+                if($last_page != 1){
+                    $init_next = 2;
+                    if(!isset($_GET['pag_num']) || $_GET['pag_num'] == 1){
+                        $second = '&amp;pag_num='.$init_next;
+                        $last_page_addon = '&amp;pag_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."".$second."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(isset($_GET['pag_num'])){
+                        $curr_page = $_GET['pag_num'];
+                        if($curr_page == $last_page && $curr_page == 2){
+                            $init_page = '&amp;pag_num=1';
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> Prev </a> 
+                            </div>";
+                        }else if($curr_page != $last_page && $curr_page != 1){
+                            $next_page = $curr_page+1;
+                            $prev_page = $curr_page-1;
+                            $next_page_addon = '&amp;pag_num='.$next_page;
+                            $prev_page_addon = '&amp;pag_num='.$prev_page;
+                            $last_page_addon = '&amp;pag_num='.$last_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                                <a href='".$loc."".$next_page_addon."'> Next </a>
+                                <a href='".$loc."".$last_page_addon."'> Last </a>
+                            </div>";
+                        }else if(($curr_page == $last_page && $curr_page != 1)){
+                            $prev_page = $curr_page-1;
+                            $prev_page_addon = '&amp;page_num='.$prev_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            </div>";
+                        }
+                    }   
+                }
+                //pagination end
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){
@@ -1537,7 +1540,7 @@ class visa_central{
         $password = server_pass;
         $database = site_database;
         $row_count = 0;
-        $rows_to_show = 9;
+        $rows_to_show = 6;
         $level = 2;
         if($mysqli = new mysqli($server, $username, $password, $database)){
 
@@ -1567,49 +1570,7 @@ class visa_central{
             $page_info = "Page <b>$page_num</b> of <b>$last_page</b>";
             //pagination controls var
             $paginationCtrl = '';
-            //pagination navigation start
             echo '<div class="applicationsList">';
-            if($last_page != 1){
-                $init_next = 2;
-                if(!isset($_GET['page1_num']) || $_GET['page1_num'] == 1){
-                    $second = '&amp;page1_num='.$init_next;
-                    $last_page_addon = '&amp;page1_num='.$last_page;
-                    echo 
-                    "<div>
-                        <a href='".$loc."".$second."'> Next </a>
-                        <a href='".$loc."".$last_page_addon."'> Last </a>
-                    </div>";
-                }else if(isset($_GET['page1_num'])){
-                    $curr_page = $_GET['page1_num'];
-                    if($curr_page == $last_page && $curr_page == 2){
-                        $init_page = '&amp;page1_num=1';
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> Prev </a> 
-                        </div>";
-                    }else if($curr_page != $last_page && $curr_page != 1){
-                        $next_page = $curr_page+1;
-                        $prev_page = $curr_page-1;
-                        $next_page_addon = '&amp;page1_num='.$next_page;
-                        $prev_page_addon = '&amp;page1_num='.$prev_page;
-                        $last_page_addon = '&amp;page1_num='.$last_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                            <a href='".$loc."".$next_page_addon."'> Next </a>
-                            <a href='".$loc."".$last_page_addon."'> Last </a>
-                        </div>";
-                    }else if(($curr_page == $last_page && $curr_page != 1)){
-                        $prev_page = $curr_page-1;
-                        $prev_page_addon = '&amp;pagee1_num='.$prev_page;
-                        echo 
-                        "<div>
-                            <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
-                        </div>";
-                    }
-                }   
-            }
-            //pagination end
             //Information about the results
             if($total_row_count != 0){
                 echo '<div class="repeat_reg">';
@@ -1640,6 +1601,49 @@ class visa_central{
                     ';
                 }
                 echo '</div>';
+                //pagination navigation start
+                
+                if($last_page != 1){
+                    $init_next = 2;
+                    if(!isset($_GET['page1_num']) || $_GET['page1_num'] == 1){
+                        $second = '&amp;page1_num='.$init_next;
+                        $last_page_addon = '&amp;page1_num='.$last_page;
+                        echo 
+                        "<div>
+                            <a href='".$loc."".$second."'> Next </a>
+                            <a href='".$loc."".$last_page_addon."'> Last </a>
+                        </div>";
+                    }else if(isset($_GET['page1_num'])){
+                        $curr_page = $_GET['page1_num'];
+                        if($curr_page == $last_page && $curr_page == 2){
+                            $init_page = '&amp;page1_num=1';
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> Prev </a> 
+                            </div>";
+                        }else if($curr_page != $last_page && $curr_page != 1){
+                            $next_page = $curr_page+1;
+                            $prev_page = $curr_page-1;
+                            $next_page_addon = '&amp;page1_num='.$next_page;
+                            $prev_page_addon = '&amp;page1_num='.$prev_page;
+                            $last_page_addon = '&amp;page1_num='.$last_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                                <a href='".$loc."".$next_page_addon."'> Next </a>
+                                <a href='".$loc."".$last_page_addon."'> Last </a>
+                            </div>";
+                        }else if(($curr_page == $last_page && $curr_page != 1)){
+                            $prev_page = $curr_page-1;
+                            $prev_page_addon = '&amp;pagee1_num='.$prev_page;
+                            echo 
+                            "<div>
+                                <a href='".$loc."'> First </a> <a href='".$loc."".$prev_page_addon."'> Prev </a>
+                            </div>";
+                        }
+                    }   
+                }
+                //pagination end
                 echo "<div class='page-info'>", $page_info, "</div>";
             }
             if($total_row_count==0){

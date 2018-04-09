@@ -11,5 +11,4 @@ $(document).ready(()=>{
         let photoName = document.getElementById("passport").files[0].name;
         document.getElementById('passportPhotoName').innerText = photoName;
     });
-
 });

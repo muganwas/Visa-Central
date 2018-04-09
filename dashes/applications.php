@@ -26,9 +26,9 @@
                 ?>
             </div>
         <?php } ?>
-        <div class="header">Applicants Details</div>
         <?php
             if(!isset($_SESSION['get_info']) && !isset($_POST['get_info'])){
+                echo '<div class="sub-header">List Section</div>';
                 $glip->applicationsList($id, $user);
             }else{
                 if(isset($_POST['unset1']) || (isset($_GET['clr']) && $_GET['plc'] == "applications")){
@@ -49,6 +49,7 @@
                     }
                     echo '</div></div>';
                 }else if(isset($_POST['get_comments']) || isset($_SESSION['get_comments'])){
+                    echo '<div class="sub-header">Notes Section</div>';
                     echo '<div class="applicationsList">
                     <div class="comments_reg">';
                     if(isset($_POST['get_comments'])){

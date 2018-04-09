@@ -29,3 +29,4 @@ if(isset($feedback)){
     </form>
 </div>
 </div>
+<div class="lfooter">Oman Days &copy; 2018. Powered by Codebudha.</div>

@@ -22,6 +22,7 @@ li {
     box-sizing: content-box;
     margin-top: 163px;
     background: #ffffff;
+    margin-bottom: 600px;
 }
 
 .clear {
@@ -29,9 +30,10 @@ li {
     content: "";
 }
 .form_container {
-    text-align: center
+    margin-top: 163px;
+    text-align: center;
+    overflow: hidden;
 }
-
 .login_form {
     margin: 0 0 10% 0;
     color: #000000;
@@ -67,8 +69,8 @@ li {
     background-image: url('../images/logo.png');
     background-size: contain;
     background-repeat: no-repeat;
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     cursor: pointer;
 }
 .logoText {
@@ -139,6 +141,9 @@ li {
     box-sizing: border-box;
     position: absolute;
     background: #ffffff;
+    background-image: url('../images/oman-bg2.jpg');
+    background-repeat: no-repeat;
+    background-position: bottom left;
     top: 0;
     left:0;
     width: 100%;
@@ -316,14 +321,23 @@ input[type="submit"], button, .applications-main a {
 }
 
 .footer {
-    position: static;
-    color: #000000;
+    background-image: url('../images/oman-footer.jpg');
+    background-repeat: no-repeat;
+    background-position: top left;
+    position: absolute;
+    height: 100px;
+    color: #ffffff;
+    font-weight: 500;
     padding-top: 30px;
     width: 100%;
     font-size: 14px;
     text-align: center;
-    bottom: 10px;
     left: 0;
+    bottom: -200px;
+}
+.footer .text{
+    padding: 10px;
+    background-color: rgba(0,0,0,0.5);
 }
 
 @media print {

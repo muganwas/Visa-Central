@@ -366,6 +366,7 @@ class visa_central{
                 echo 
                 '<div class="thead">
                     <div class="app_no_alt1">Application Number</div>
+                    <div class="user_agent">Apgent Name</div>
                     <div class="status_alt">Status</div>
                     <div class="date1">Date Submitted</div>
                     <div class="view1"></div>
@@ -380,6 +381,7 @@ class visa_central{
                     echo 
                     '<div class="tbody">',
                     '<div class="app_no_alt1">'.$data['application_number'].'</div>',
+                    '<div class="user_agent_alt">'.$data['travel_agent'].'</div>',
                     '<div class="status_alt">',ucfirst($data['application_status']),'</div>',
                     '<div class="date1">',$date,'</div>',
                     '<div class="view_alt1">';

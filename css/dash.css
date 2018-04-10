@@ -360,7 +360,14 @@
     width: 12%;
 }
 .app_no_alt1{
-    width: 33%;
+    width: 18%;
+}
+.user_agent {
+    width: 20%;
+}
+.user_agent_alt{
+    width: 20%;
+
 }
 .view{
     display: none;
@@ -411,7 +418,7 @@
     width: 20%;
 }
 .status_alt {
-    width: 23%;
+    width: 18%;
 }
 .status_alt_1 {
     padding: 3px 0!important;

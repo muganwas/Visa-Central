@@ -46,6 +46,13 @@
                         $update = 'application_status';
                         $applicant = $_SESSION['applicant'];
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateApp($update, $app_id, $data).''.$upload_fb = $glip->upload_visa_copy($user, $applicant, "visa").'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }else if(isset($_POST['get_comments']) || isset($_SESSION['get_comments'])){
@@ -79,6 +86,13 @@
                         $update = 'application_status';
                         $applicant = $_SESSION['applicant'];
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateApp($update, $app_id, $data).'<br/>'.$upload_fb = $glip->upload_visa_copy($user, $applicant, "visa").'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }  

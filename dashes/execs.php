@@ -34,6 +34,13 @@
                         $target = $_POST['to_update'];
                         $data = $_POST['update_data'];
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateUsers($target, $data, $id).'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }else{
@@ -46,6 +53,13 @@
                         $target = $_POST['to_update'];
                         $data = $_POST['update_data'];
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateUsers($target, $data, $id).'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }  

@@ -86,21 +86,21 @@ class visa_central{
                         $last_name = $location.$pass_photo.'.'.$file_extension;//change the file_name to a string passed from the params
 
                             if(move_uploaded_file($tmp_name, $last_name)){
-                                return $file_name.' Uploaded ';
+                                return ' Photo uploaded successfully ';
                             }
                             else{
-                                return $file_name.' already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
+                                return 'This photo already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
                             }
                         }
                         else{
-                                return $file_name.' is too large!';
+                                return 'This photo is too large!';
                             }
                     }
                     else{
-                            return $file_name.' file format is not permitted!';
+                            return 'This photo file format is not permitted!';
                         }
                 }else{
-                        return 'Select an passport photo!';
+                        return 'No passport photo was provided';
                 }
             }   
         }else{
@@ -155,21 +155,21 @@ class visa_central{
                             $last_name1 = $location.$passport.'.'.$file_extension1;
 
                             if(move_uploaded_file($tmp_name1, $last_name1)){
-                                return $file_name1.' Uploaded ';
+                                return 'Passport copy Uploaded ';
                             }
                             else{
-                                return $file_name1.' already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
+                                return 'Passport copy already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
                             }
                         }
                         else{
-                                return $file_name1.' is too large!';
+                                return 'Passport copy image is too large!';
                             }
                     }
                     else{
-                            return $file_name1.' file format is not permitted!';
+                            return 'Passport copy file format is not permitted!';
                         }
                 }else{
-                        return 'There was no Image provided!';
+                        return 'No passport copy image provided!';
                 }
             }   
         }else{
@@ -228,18 +228,18 @@ class visa_central{
                                 echo "<meta http-equiv='refresh' content='0'>";
                             }
                             else{
-                                return $file_name1.' already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
+                                return 'Visa already exist or there was an error! Try again or contact your SYSTEMS ADMIN.';
                             }
                         }
                         else{
-                                return $file_name1.' is too large!';
+                                return 'Visa image is too large!';
                             }
                     }
                     else{
-                            return $file_name1.' file format is not permitted!';
+                            return 'Visa file format is not permitted!';
                         }
                 }else{
-                        return 'There was no Image provided for upload!';
+                        return 'There was no Visa image provided for upload!';
                 }
             }   
         }else{

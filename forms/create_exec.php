@@ -18,6 +18,11 @@
  ?>
 <?php if(isset($feedback)){?>
     <div class="floating_fb"><?php echo $feedback; ?></div>
+    <script type="text/javascript">
+        setTimeout(() => {
+            $('.floating_fb').fadeOut();
+        }, 3000);
+    </script>
 <?php }?>
 <form action="" method="POST">
     <input type="hidden" value="exec" name="exec" />

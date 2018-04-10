@@ -17,7 +17,10 @@ li {
     margin:0;
     padding:0;
 }
-
+#main{
+    background: url('../images/main-bg.jpg');
+    background-repeat: no-repeat;
+}
 .main {
     box-sizing: content-box;
     margin-top: 163px;
@@ -319,7 +322,12 @@ input[type="submit"], button, .applications-main a {
 .users_info input {
     margin: 3px;
 }
-
+.lfooter{
+    display: inline-block;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+}
 .footer {
     background-image: url('../images/oman-footer.jpg');
     background-repeat: no-repeat;
@@ -333,7 +341,7 @@ input[type="submit"], button, .applications-main a {
     font-size: 14px;
     text-align: center;
     left: 0;
-    bottom: -200px;
+    bottom: -230px;
 }
 .footer .text{
     padding: 10px;

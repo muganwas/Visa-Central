@@ -41,7 +41,7 @@
     box-sizing: border-box;
     display: flex;
     position: absolute;
-    min-height: 550px;
+    min-height: 650px;
     background: #ffffff;
     width: 100%;
     left: 0;
@@ -114,9 +114,10 @@
     box-sizing: border-box;
     float: left;
     border-top: none;
-    border-bottom: thin solid #b6b6b6;
-    border-left: thin solid #b6b6b6;
-    border-right: thin solid #b6b6b6;
+    margin-bottom: 50px;
+    border-bottom: thin solid #dddddd;
+    border-left: thin solid #dddddd;
+    border-right: thin solid #dddddd;
     background: #ffffff;
     min-height:400px;
     min-width: 60%;
@@ -145,9 +146,10 @@
     box-sizing: border-box;
     color: #ffffff;
     float: left;
+    margin-bottom: 50px;
     border-top: none;
-    border-bottom: thin solid #b6b6b6;
-    border-right: thin solid #b6b6b6;
+    border-bottom: thin solid #dddddd;
+    border-right: thin solid #dddddd;
     background: #ffffff;
     min-height: 400px;
     max-height: 95%;

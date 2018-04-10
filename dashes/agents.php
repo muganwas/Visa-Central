@@ -34,6 +34,13 @@
                         $data = $_POST['update_data'];
                         $user_id = $glip->getUserIdByAgentNo($agent_no);
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateAgent($target, $data, $user_id).'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }else{
@@ -47,6 +54,13 @@
                         $data = $_POST['update_data'];
                         $user_id = $glip->getUserIdByAgentNo($agent_no);
                         echo '<div class="floating_fb fadeIn">'.$feedback = $glip->updateAgent($target, $data, $user_id).'</div>';
+                        echo '
+                            <script type="text/javascript">
+                                setTimeout(() => {
+                                    $(".floating_fb").fadeOut();
+                                }, 3000);
+                            </script>
+                        ';
                     }
                     echo '</div></div>';
                 }  
